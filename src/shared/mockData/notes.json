@@ -7,21 +7,21 @@
     "updated_at": ""
   },
   {
-    "_id": "67rdca3eeb7f6fgeed471815",
+    "_id": "67rdca3eeb7f6fgeed471100",
     "title": "Node и express",
     "category": "67rdca3eeb7f6fgeed471820",
     "created_at": "15.07.23 10:22",
     "updated_at": "17.07.23 11:30"
   },
   {
-    "_id": "67rdca3eeb7f6fgeed471815",
+    "_id": "67rdca3eeb7f6fgeed4711012",
     "title": "Пропарсим страницу!",
     "category": "67rdca3eeb7f6fgeed471814",
     "created_at": "10.07.23 07:30",
     "updated_at": ""
   },
   {
-    "_id": "67rdca3eeb7f6fgeed471815",
+    "_id": "67rdca3eeb7f6fgeed471101",
     "title": "Async await",
     "category": "67rdca3eeb7f6fgeed471822",
     "created_at": "17.07.23 10:00",
@@ -35,7 +35,7 @@
     "updated_at": "03.07.23 10:58"
   },
   {
-    "_id": "67rdca3eeb7f6fgeed471815",
+    "_id": "67rdca3eeb7f6fgeed471102",
     "title": "Пофлудим",
     "category": "67rdca3eeb7f6fgeed471829",
     "created_at": "12.07.23 22:03",

@@ -35,4 +35,7 @@ export const loadCommentsList = (data) => async (dispatch) => {
 
 export const getCommentsList = () => (state) => state.comments.entities;
 
+export const getNoteCommentsList = (note) => (state) =>
+  state.comments.entities.filter((comm) => comm?.noteId === note?._id);
+
 export default commentsListReducer;

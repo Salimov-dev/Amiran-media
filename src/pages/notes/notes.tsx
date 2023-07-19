@@ -1,33 +1,48 @@
+// libraries
 import { useSelector } from "react-redux";
-import { getNotesList } from "../../shared/redux/store/notes-store";
-import { getusersList } from "../../shared/redux/store/users-store";
+import { useState } from "react";
+// MUI
+import { Box } from "@mui/material";
+import styled from "@emotion/styled";
+// components
+import NoteContent from "../../entities/note/components/note-content";
+import NotesList from "../../entities/note/components/notes-list";
+// store
+import {
+  getNotesList,
+  getSelectedNote,
+} from "../../entities/note/store/notes-store";
+import {
+  getNoteAuthor,
+  getUsersList,
+} from "../../shared/redux/store/users-store";
 import { getCommentsList } from "../../shared/redux/store/comments-store";
 import { getCategoriesList } from "../../shared/redux/store/categories-store";
-import {
-  AppBar,
-  Container,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  TextField,
-  MenuIcon,
-} from "@mui/material";
 
-import styled from "@emotion/styled";
+const Component = styled(Box)`
+  display: flex;
+  background-color: #f9f9f7;
+`;
 
 const Notes = () => {
+  const [selectedNoteID, setSelectedNoteID] = useState(null);
+  const selectedNote = useSelector(getSelectedNote(selectedNoteID));
+  const noteAuthor = useSelector(getNoteAuthor(selectedNote?.userID));
   const notes = useSelector(getNotesList());
-  const users = useSelector(getusersList());
+  const users = useSelector(getUsersList());
   const comments = useSelector(getCommentsList());
   const categories = useSelector(getCategoriesList());
-  //   console.log("notes", notes);
-  //   console.log("users", users);
-  //   console.log("comments", comments);
-  //   console.log("categories", categories);
 
-  return <h1>notes</h1>;
+  const handleSelectNote = (id: string) => {
+    setSelectedNoteID(id);
+  };
+
+  return (
+    <Component>
+      <NotesList notes={notes} onSelectNote={handleSelectNote} />
+      <NoteContent note={selectedNote} author={noteAuthor} />
+    </Component>
+  );
 };
 
 export default Notes;

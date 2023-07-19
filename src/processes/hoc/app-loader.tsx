@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loadNotesList } from "../../shared/redux/store/notes-store";
+import { loadNotesList } from "../../entities/note/store/notes-store";
 import notes from "../../shared/mockData/notes.json";
 import users from "../../shared/mockData/users.json";
 import comments from "../../shared/mockData/comments.json";

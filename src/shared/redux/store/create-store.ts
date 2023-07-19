@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import notesListReducer from "./notes-store";
+import notesListReducer from "../../../entities/note/store/notes-store";
 import usersListReducer from "./users-store";
 import commentsListReducer from "./comments-store";
 import categoriesListReducer from "./categories-store";

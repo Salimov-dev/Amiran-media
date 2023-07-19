@@ -33,6 +33,11 @@ export const loadNotesList = (data) => async (dispatch) => {
   }
 };
 
+export const getSelectedNote = (id) => (state) => {
+  const selectedNote = state.notes.entities.find((note) => note._id === id);
+  return selectedNote;
+};
+
 export const getNotesList = () => (state) => state.notes.entities;
 
 export default notesListReducer;

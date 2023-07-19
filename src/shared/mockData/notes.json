@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Шмот",
+    "category": "67rdca3eeb7f6fgeed471818",
+    "created_at": "19.07.23 12:17",
+    "updated_at": ""
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Node и express",
+    "category": "67rdca3eeb7f6fgeed471820",
+    "created_at": "15.07.23 10:22",
+    "updated_at": "17.07.23 11:30"
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Пропарсим страницу!",
+    "category": "67rdca3eeb7f6fgeed471814",
+    "created_at": "10.07.23 07:30",
+    "updated_at": ""
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Async await",
+    "category": "67rdca3eeb7f6fgeed471822",
+    "created_at": "17.07.23 10:00",
+    "updated_at": ""
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Вопросы на собеседовании",
+    "category": "67rdca3eeb7f6fgeed471824",
+    "created_at": "18.06.23 11:18",
+    "updated_at": "03.07.23 10:58"
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed471815",
+    "title": "Пофлудим",
+    "category": "67rdca3eeb7f6fgeed471829",
+    "created_at": "12.07.23 22:03",
+    "updated_at": ""
+  }
+]

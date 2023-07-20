@@ -1,12 +1,9 @@
 // libraries
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
-import { useSelector } from "react-redux";
 // MUI
 import { Box, Typography } from "@mui/material";
 import styled from "@emotion/styled";
-// store
-import { getNoteCommentsList } from "../../../shared/redux/store/comments-store";
 // components
 import Comment from "../../comment/comment";
 
@@ -53,8 +50,8 @@ const CommentTitle = styled(Typography)`
   font-weight: bold;
 `;
 
-const NoteContent = ({ note, author }) => {
-  const filteredComments = useSelector(getNoteCommentsList(note));
+const NoteContent = ({ note, author, comments }) => {
+  const filteredComments = comments.filter((comm) => comm.noteId === note?._id);
 
   const time = (date: string) => {
     return dayjs(date).locale("ru").format("DD MMMM YYYY,HH:mm");

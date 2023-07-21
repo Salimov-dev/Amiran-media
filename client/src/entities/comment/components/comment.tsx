@@ -2,8 +2,10 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 // MUI
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Divider } from "@mui/material";
 import styled from "@emotion/styled";
+import { getNoteAuthor } from "../../user/store/users-store";
+import { useSelector } from "react-redux";
 
 const Component = styled(Box)({
   display: "flex",
@@ -19,7 +21,8 @@ const Container = styled(Paper)`
 `;
 
 const CommentContent = styled(Box)`
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 `;
 
 const CommentInfo = styled(Box)`
@@ -27,8 +30,21 @@ const CommentInfo = styled(Box)`
   justify-content: end;
   gap: 8px;
   padding-left: 14px;
+  margin-top: 6px;
   font-style: italic;
 `;
+
+const AuthorInfo = styled(Box)`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const Avatar = styled(`img`)({
+  width: "30px",
+  borderRadius: "50%",
+  marginRight: "10px",
+});
 
 const Comment = ({ comm }) => {
   const time = (date: string) => {
@@ -38,11 +54,14 @@ const Comment = ({ comm }) => {
   return (
     <Component>
       <Container>
-        <CommentContent>{comm.comment}</CommentContent>
+        <AuthorInfo>
+          <Avatar src={useSelector(getNoteAuthor(comm.userId))?.image} />
+          <CommentContent>{comm.comment}</CommentContent>
+        </AuthorInfo>
+    <Divider/>
         <CommentInfo>
           <CommentContent>
-            {comm.userId}
-            {/* {useSelector(getNoteAuthor(comm.userId))?.name}, */}
+            {useSelector(getNoteAuthor(comm.userId))?.name},
           </CommentContent>
           <CommentContent>{time(comm.created_at)}</CommentContent>
         </CommentInfo>

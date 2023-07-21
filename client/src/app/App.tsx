@@ -6,32 +6,46 @@ import ScrollToTop from "../shared/utils/scroll-to-top";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/login/login";
 import SignUp from "../pages/signup/signup";
+import Profile from "../pages/profile/profile";
+import { Box } from "@mui/material";
+import styled from "@emotion/styled";
+
+const AppStyled = styled(Box)`
+background-color: #f9f9f7;
+`
 
 function App() {
   return (
-    <AppLoader>
-      <CssBaseline />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Appbar />
-        <Routes>
-          <Route index path="" element={<Notes />} />
+    <AppStyled>
+      <AppLoader>
+        <CssBaseline />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Appbar />
+          <Routes>
+            <Route index path="" element={<Notes />} />
 
-          <Route path="auth" element={<Login />}>
-            <Route index element={<Navigate to="/auth/login" />} />
-            <Route path={"login"} element={<Login />} />
-            <Route path="*" element={<Navigate to="" />} />
-          </Route>
+            <Route path="auth" element={<Login />}>
+              <Route index element={<Navigate to="/auth/login" />} />
+              <Route path={"login"} element={<Login />} />
+              <Route path="*" element={<Navigate to="" />} />
+            </Route>
 
-          <Route path="auth" element={<SignUp />}>
-            <Route index element={<Navigate to="/auth/SignUp" />} />
-            <Route path={"signup"} element={<SignUp />} />
-            <Route path="*" element={<Navigate to="" />} />
-          </Route>
+            <Route path="auth" element={<SignUp />}>
+              <Route index element={<Navigate to="/auth/SignUp" />} />
+              <Route path={"signup"} element={<SignUp />} />
+              <Route path="*" element={<Navigate to="" />} />
+            </Route>
 
-        </Routes>
-      </BrowserRouter>
-    </AppLoader>
+            <Route path="user" element={<Profile />}>
+              <Route index element={<Navigate to="/auth/SignUp" />} />
+              <Route path={":userId"} element={<Profile />} />
+              <Route path="*" element={<Navigate to="" />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AppLoader>
+    </AppStyled>
   );
 }
 

@@ -105,7 +105,6 @@ export const signUp = (payload) => async (dispatch) => {
     const data = await authService.register(payload);
     localStorageService.setTokens(data);
     dispatch(authRequestSuccess({ userId: data.userId }));
-    // history.push("/users");
   } catch (error) {
     dispatch(authRequestFailed(error.message));
   }
@@ -126,7 +125,9 @@ export const loadUsersList = () => async (dispatch) => {
 };
 
 export const getNoteAuthor = (id) => (state) => {
-  return state?.users?.entities?.find((user) => user._id === id);
+  if (state.users.entities) {
+    return state.users.entities.find((u) => u._id === id);
+  }
 };
 
 export const getCurrentUserData = () => (state) => {

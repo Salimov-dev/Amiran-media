@@ -6,6 +6,7 @@ import {
   TextField,
   Menu,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +41,10 @@ const UserMenu = styled(Box)`
   gap: 12px;
 `;
 
+const UserName = styled(Typography)`
+  color: gray;
+`;
+
 const Avatar = styled(`img`)({
   width: "30px",
   borderRadius: "50%",
@@ -59,6 +64,11 @@ const Appbar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleOpenProfile = () => {
+    setAnchorEl(null);
+    navigate(`/user/${currentUser._id}`);
   };
 
   const handleLogOut = () => {
@@ -89,7 +99,7 @@ const Appbar = () => {
                 onClick={handleClick}
               >
                 <Avatar src={currentUser.image} />
-                {currentUser.name}
+                <UserName>{currentUser.name}</UserName>
               </Button>
               <Menu
                 id="basic-menu"
@@ -100,7 +110,7 @@ const Appbar = () => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Профиль</MenuItem>
+                <MenuItem onClick={handleOpenProfile}>Профиль</MenuItem>
                 <MenuItem onClick={handleLogOut}>Выйти</MenuItem>
               </Menu>
             </UserMenu>

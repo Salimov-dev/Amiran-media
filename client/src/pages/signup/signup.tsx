@@ -11,7 +11,6 @@ const Component = styled(Box)`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #f9f9f7;
 `;
 
 const AuthForm = styled(Paper)`
@@ -37,6 +36,10 @@ const LinkStyled = styled(Link)`
 const Account = styled(Box)`
   display: flex;
   gap: 6px;
+`;
+
+const BackButton = styled(Box)`
+  padding: 20px 0 0 20px;
 `;
 
 // const schema = yup.object().shape({
@@ -87,61 +90,70 @@ const SignUp = () => {
     navigate("/");
   };
 
+  const handleNavigate = () => {
+    navigate(-1);
+  };
+
   const handleClick = () => {
     navigate("login");
   };
 
   return (
-    <Component>
-      <AuthForm>
-        <Title>
-          <Typography variant="h5">Зарегистрироваться</Typography>
-        </Title>
+    <>
+      <BackButton>
+        <Button onClick={handleNavigate}>Назад</Button>
+      </BackButton>
+      <Component>
+        <AuthForm>
+          <Title>
+            <Typography variant="h5">Зарегистрироваться</Typography>
+          </Title>
 
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            padding: "20px",
-            gap: "10px",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <TextField
-            label="Имя"
-            id="name"
-            name="name"
-            value={data.name}
-            onChange={handleChange}
-          />
-          <TextField
-            label="E-mail"
-            id="email"
-            name="email"
-            value={data.email}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Пароль"
-            id="password"
-            name="password"
-            type="password"
-            value={data.password}
-            onChange={handleChange}
-          />
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              padding: "20px",
+              gap: "10px",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              label="Имя"
+              id="name"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+            />
+            <TextField
+              label="E-mail"
+              id="email"
+              name="email"
+              value={data.email}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Пароль"
+              id="password"
+              name="password"
+              type="password"
+              value={data.password}
+              onChange={handleChange}
+            />
 
-          <Enter type="submit" variant="contained">
-            Отправить
-          </Enter>
+            <Enter type="submit" variant="contained">
+              Отправить
+            </Enter>
 
-          <Account>
-            <Typography>Есть аккаунт?</Typography>
-            <LinkStyled onClick={handleClick}>Войти</LinkStyled>
-          </Account>
-        </form>
-      </AuthForm>
-    </Component>
+            <Account>
+              <Typography>Есть аккаунт?</Typography>
+              <LinkStyled onClick={handleClick}>Войти</LinkStyled>
+            </Account>
+          </form>
+        </AuthForm>
+      </Component>
+    </>
   );
 };
 

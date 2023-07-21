@@ -51,6 +51,10 @@ const LinkStyled = styled(Link)`
   cursor: pointer;
 `;
 
+const BackButton = styled(Box)`
+  padding: 20px 0 0 20px;
+`;
+
 // const schema = yup.object().shape({
 //   name: yup
 //     .string()
@@ -85,6 +89,10 @@ const Login = () => {
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleNavigate = () => {
+    navigate(-1);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ payload: data }));
@@ -96,45 +104,50 @@ const Login = () => {
   };
 
   return (
-    <Component>
-      <AuthForm>
-        <Title>
-          <Typography variant="h5">Войти</Typography>
-        </Title>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            padding: "20px",
-            gap: "10px",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <TextField
-            label="E-mail"
-            id="email"
-            name="email"
-            value={data.email}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Пароль"
-            id="password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-          />
-          <Enter type="submit" variant="contained">
-            Войти
-          </Enter>
-          <Account>
-            <Typography>Нет аккаунта?</Typography>
-            <LinkStyled onClick={handleClick}>Зарегистрироваться</LinkStyled>
-          </Account>
-        </form>
-      </AuthForm>
-    </Component>
+    <>
+      <BackButton>
+        <Button onClick={handleNavigate}>Назад</Button>
+      </BackButton>
+      <Component>
+        <AuthForm>
+          <Title>
+            <Typography variant="h5">Войти</Typography>
+          </Title>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              padding: "20px",
+              gap: "10px",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              label="E-mail"
+              id="email"
+              name="email"
+              value={data.email}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Пароль"
+              id="password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+            />
+            <Enter type="submit" variant="contained">
+              Войти
+            </Enter>
+            <Account>
+              <Typography>Нет аккаунта?</Typography>
+              <LinkStyled onClick={handleClick}>Зарегистрироваться</LinkStyled>
+            </Account>
+          </form>
+        </AuthForm>
+      </Component>
+    </>
   );
 };
 

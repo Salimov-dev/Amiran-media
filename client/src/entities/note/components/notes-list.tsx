@@ -7,7 +7,6 @@ import { getCategoriesList } from "../../categories/store/categories-store";
 
 const Component = styled(Box)`
   width: 350px;
-  height: 100vh;
   border-right: 1px solid #cecece;
 `;
 

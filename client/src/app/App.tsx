@@ -9,10 +9,12 @@ import SignUp from "../pages/signup/signup";
 import Profile from "../pages/profile/profile";
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
+import ProfileEdit from "../pages/profile-edit/profile-edit";
 
 const AppStyled = styled(Box)`
-background-color: #f9f9f7;
-`
+height: 100vh;
+  background-color: #f9f9f7;
+`;
 
 function App() {
   return (
@@ -37,11 +39,13 @@ function App() {
               <Route path="*" element={<Navigate to="" />} />
             </Route>
 
-            <Route path="user" element={<Profile />}>
-              <Route index element={<Navigate to="/auth/SignUp" />} />
+            <Route path="user" >
+              <Route index element={<Navigate to="/" />} />
               <Route path={":userId"} element={<Profile />} />
+              <Route path={":userId/edit"} element={<ProfileEdit />} />
               <Route path="*" element={<Navigate to="" />} />
             </Route>
+
           </Routes>
         </BrowserRouter>
       </AppLoader>

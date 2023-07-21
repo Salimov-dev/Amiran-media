@@ -4,6 +4,7 @@ import "dayjs/locale/ru";
 // MUI
 import { Box, Paper, Divider } from "@mui/material";
 import styled from "@emotion/styled";
+// store
 import { getNoteAuthor } from "../../user/store/users-store";
 import { useSelector } from "react-redux";
 
@@ -58,7 +59,7 @@ const Comment = ({ comm }) => {
           <Avatar src={useSelector(getNoteAuthor(comm.userId))?.image} />
           <CommentContent>{comm.comment}</CommentContent>
         </AuthorInfo>
-    <Divider/>
+        <Divider />
         <CommentInfo>
           <CommentContent>
             {useSelector(getNoteAuthor(comm.userId))?.name},

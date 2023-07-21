@@ -1,21 +1,14 @@
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Button,
-  TextField,
-  Typography,
-  Paper,
-  Link,
-} from "@mui/material";
+// libraries
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getCurrentUserData,
-  login,
-} from "../../entities/user/store/users-store";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// MUI
+import styled from "@emotion/styled";
+import { Box, Button, Typography, Paper } from "@mui/material";
+// store
+import { login } from "../../entities/user/store/users-store";
+// components
+import LoginForm from "./components/login-form";
 
 const Component = styled(Box)`
   display: flex;
@@ -36,19 +29,6 @@ const Title = styled(Box)`
   display: flex;
   padding: 20px;
   justify-content: center;
-`;
-
-const Enter = styled(Button)`
-  margin-top: 20px;
-`;
-
-const Account = styled(Box)`
-  display: flex;
-  gap: 6px;
-`;
-
-const LinkStyled = styled(Link)`
-  cursor: pointer;
 `;
 
 const BackButton = styled(Box)`
@@ -90,17 +70,13 @@ const Login = () => {
   };
 
   const handleNavigate = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ payload: data }));
     navigate("/");
-  };
-
-  const handleClick = () => {
-    navigate("signup");
   };
 
   return (
@@ -113,38 +89,11 @@ const Login = () => {
           <Title>
             <Typography variant="h5">Войти</Typography>
           </Title>
-          <form
+          <LoginForm
+            data={data}
             onSubmit={handleSubmit}
-            style={{
-              display: "flex",
-              padding: "20px",
-              gap: "10px",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              label="E-mail"
-              id="email"
-              name="email"
-              value={data.email}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Пароль"
-              id="password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-            />
-            <Enter type="submit" variant="contained">
-              Войти
-            </Enter>
-            <Account>
-              <Typography>Нет аккаунта?</Typography>
-              <LinkStyled onClick={handleClick}>Зарегистрироваться</LinkStyled>
-            </Account>
-          </form>
+            onChange={handleChange}
+          />
         </AuthForm>
       </Component>
     </>

@@ -1,8 +1,9 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import localStorageService from "../../../shared/redux/services/localStorage.service";
+import localStorageService from "../../../shared/redux/services/localStorage-service";
 import authService from "../../../shared/redux/services/auth-service";
-import { generetaAuthError } from "../../../shared/utils/generateAuthError";
+import { generetaAuthError } from "../../../shared/utils/generate-auth-error";
+import userService from "./user.service";
 
 const initialState = localStorageService.getAccessToken()
   ? {
@@ -80,7 +81,7 @@ const userUpdateFailed = createAction("users/userUpdateFailed");
 const userUpdateRequested = createAction("users/userUpdateRequested");
 
 export const login =
-  ({ payload, redirect }) =>
+  ({ payload }) =>
   async (dispatch) => {
     const { email, password } = payload;
     dispatch(authRequested());
@@ -121,6 +122,17 @@ export const loadUsersList = () => async (dispatch) => {
     dispatch(usersReceived(data));
   } catch (error) {
     dispatch(usersFailed(error.message));
+  }
+};
+
+export const updateUser = (payload) => async (dispatch) => {
+  dispatch(userUpdateRequested());
+  try {
+    const { content } = await userService.update(payload);
+
+    dispatch(userUpdateSuccessed(content));
+  } catch (error) {
+    dispatch(userUpdateFailed(error.message));
   }
 };
 

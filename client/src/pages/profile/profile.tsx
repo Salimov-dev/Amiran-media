@@ -9,11 +9,11 @@ const Component = styled(Box)`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
 `;
 
 const ProfileContainer = styled(Paper)`
   display: flex;
+  width: 300px;
   padding: 20px;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,7 @@ const ButtonStyled = styled(Button)`
 const Avatar = styled(`img`)({
   width: "200px",
   borderRadius: "10px",
-  marginBottom: "10px",
+  margin: "20px 0 80px 0px",
 });
 
 const BackButton = styled(Box)`
@@ -42,16 +42,20 @@ const BackButton = styled(Box)`
 
 const Profile = () => {
   const currentUser = useSelector(getCurrentUserData());
-
   const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    navigate(`/user/${currentUser._id}/edit`);
+  };
+
   const handleNavigate = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (
     <>
       <BackButton>
-        <Button onClick={handleNavigate}>Назад</Button>
+        <Button onClick={handleNavigate}>Вернуться к статьям</Button>
       </BackButton>
       <Component>
         <ProfileContainer>
@@ -63,7 +67,7 @@ const Profile = () => {
             <Typography fontWeight={700}>E-mail: </Typography>{" "}
             {currentUser?.email}
           </Info>
-          <ButtonStyled>Редактировать</ButtonStyled>
+          <ButtonStyled type="submit" onClick={handleEditProfile}>Редактировать</ButtonStyled>
         </ProfileContainer>
       </Component>
     </>

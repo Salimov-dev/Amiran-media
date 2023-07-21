@@ -10,9 +10,11 @@ import Profile from "../pages/profile/profile";
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import ProfileEdit from "../pages/profile-edit/profile-edit";
+import NoteEdit from "../pages/note-edit/note-edit";
+import NoteCreate from "../pages/note-create/note-create";
 
 const AppStyled = styled(Box)`
-height: 100vh;
+  height: 100vh;
   background-color: #f9f9f7;
 `;
 
@@ -39,13 +41,19 @@ function App() {
               <Route path="*" element={<Navigate to="" />} />
             </Route>
 
-            <Route path="user" >
+            <Route path="user">
               <Route index element={<Navigate to="/" />} />
               <Route path={":userId"} element={<Profile />} />
               <Route path={":userId/edit"} element={<ProfileEdit />} />
               <Route path="*" element={<Navigate to="" />} />
             </Route>
 
+            <Route path="note">
+              <Route index element={<Navigate to="/" />} />
+              <Route path={"create"} element={<NoteCreate />} />
+              <Route path={":noteId/edit"} element={<NoteEdit />} />
+              <Route path="*" element={<Navigate to="" />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </AppLoader>

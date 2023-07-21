@@ -36,6 +36,10 @@ const Appbar = () => {
     navigate("auth/login");
   };
 
+  const handleCreateNote = () => {
+    navigate("note/create")
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
@@ -46,6 +50,9 @@ const Appbar = () => {
             variant="outlined"
             size="small"
           />
+
+          <Button onClick={handleCreateNote} variant="contained">Добавить статью</Button>
+
           {currentUser ? (
             <UserMenu currentUser={currentUser} />
           ) : (

@@ -11,13 +11,11 @@ const schema = new Schema(
       required: true,
     },
     category: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
+      type: String,
       required: true,
     },
-    userID: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    userId: {
+      type: String,
       required: true,
     },
   },

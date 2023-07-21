@@ -116,10 +116,10 @@ export const logOut = () => (dispatch) => {
 };
 
 export const loadUsersList = () => async (dispatch) => {
-  const { data } = await axios("http://localhost:8080/api/user");
   dispatch(usersRequested());
   try {
-    dispatch(usersReceived(data));
+    const { content } = await userService.get();
+    dispatch(usersReceived(content));
   } catch (error) {
     dispatch(usersFailed(error.message));
   }

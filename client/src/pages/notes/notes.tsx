@@ -39,7 +39,7 @@ const Notes = () => {
 
   return (
     <Component>
-      <NotesList notes={notes} onSelectNote={handleSelectNote} />
+      <NotesList notes={notes} onSelectNote={handleSelectNote} selectedNoteID={selectedNoteID} />
       <NoteContent
         note={selectedNote}
         author={noteAuthor}

@@ -36,7 +36,10 @@ const Date = styled(Box)`
 `;
 
 const CropContent = styled(Box)`
-  color: #cecece;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 interface Note {
@@ -44,10 +47,10 @@ interface Note {
   title: string;
   created_at: string;
   notes: string;
+  content: string;
 }
 
-const NotesList = ({ notes, onSelectNote }) => {
-
+const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
   const time = (date: string) => {
     return dayjs(date).format("HH:mm");
   };
@@ -55,11 +58,26 @@ const NotesList = ({ notes, onSelectNote }) => {
   return (
     <Component>
       {notes.map((note: Note) => (
-        <NoteElement key={note._id} onClick={() => onSelectNote(note._id)}>
+        <NoteElement
+          key={note._id}
+          onClick={() => onSelectNote(note._id)}
+          sx={{
+            backgroundColor:
+              note._id === selectedNoteID ? "#dfdfdd" : "inherit",
+            color: note._id === selectedNoteID ? "black" : "inherit",
+          }}
+        >
           <Title>{note.title}</Title>
           <SubTitle>
             <Date>{time(note.created_at)}</Date>
-            <CropContent className="cropContent">Начало текста...</CropContent>
+            <CropContent
+              className="cropContent"
+              sx={{
+                color: note._id === selectedNoteID ? "black" : "#cecece",
+              }}
+            >
+              {note.content}
+            </CropContent>
           </SubTitle>
         </NoteElement>
       ))}

@@ -15,9 +15,9 @@ import {
 import {
   getNoteAuthor,
   getUsersList,
-} from "../../shared/redux/store/users-store";
-import { getCommentsList } from "../../shared/redux/store/comments-store";
-import { getCategoriesList } from "../../shared/redux/store/categories-store";
+} from "../../entities/user/components/users-store";
+import { getCommentsList } from "../../entities/comment/store/comments-store";
+import { getCategoriesList } from "../../entities/categories/store/categories-store";
 
 const Component = styled(Box)`
   display: flex;
@@ -32,6 +32,9 @@ const Notes = () => {
   const users = useSelector(getUsersList());
   const comments = useSelector(getCommentsList());
   const categories = useSelector(getCategoriesList());
+  console.log("users", users);
+  console.log("selectedNote", selectedNote);
+  console.log("noteAuthor", noteAuthor);
 
   const handleSelectNote = (id: string) => {
     setSelectedNoteID(id);
@@ -39,7 +42,11 @@ const Notes = () => {
 
   return (
     <Component>
-      <NotesList notes={notes} onSelectNote={handleSelectNote} selectedNoteID={selectedNoteID} />
+      <NotesList
+        notes={notes}
+        onSelectNote={handleSelectNote}
+        selectedNoteID={selectedNoteID}
+      />
       <NoteContent
         note={selectedNote}
         author={noteAuthor}

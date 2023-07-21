@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const categoriesListSlice = createSlice({
   name: "categories",
@@ -24,9 +25,10 @@ const categoriesListSlice = createSlice({
 const { reducer: categoriesListReducer, actions } = categoriesListSlice;
 const { categoriesRequested, categoriesReceived, categoriesFailed } = actions;
 
-export const loadCategoriesList = (data) => async (dispatch) => {
+export const loadCategoriesList = () => async (dispatch) => {
   dispatch(categoriesRequested());
   try {
+    const { data } = await axios("http://localhost:8080/api/category");
     dispatch(categoriesReceived(data));
   } catch (error) {
     dispatch(categoriesFailed(error.message));

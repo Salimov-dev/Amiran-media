@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const notesListSlice = createSlice({
   name: "notes",
@@ -24,9 +25,11 @@ const notesListSlice = createSlice({
 const { reducer: notesListReducer, actions } = notesListSlice;
 const { notesRequested, notesReceived, notesFailed } = actions;
 
-export const loadNotesList = (data) => async (dispatch) => {
+export const loadNotesList = () => async (dispatch) => {
   dispatch(notesRequested());
   try {
+    const { data } = await axios("http://localhost:8080/api/note");
+
     dispatch(notesReceived(data));
   } catch (error) {
     dispatch(notesFailed(error.message));

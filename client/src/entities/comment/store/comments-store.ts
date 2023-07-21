@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const commentsListSlice = createSlice({
@@ -24,9 +25,10 @@ const commentsListSlice = createSlice({
 const { reducer: commentsListReducer, actions } = commentsListSlice;
 const { commentsRequested, commentsReceived, commentsFailed } = actions;
 
-export const loadCommentsList = (data) => async (dispatch) => {
+export const loadCommentsList = () => async (dispatch) => {
   dispatch(commentsRequested());
   try {
+    const { data } = await axios("http://localhost:8080/api/comment");
     dispatch(commentsReceived(data));
   } catch (error) {
     dispatch(commentsFailed(error.message));

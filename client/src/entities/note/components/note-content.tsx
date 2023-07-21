@@ -5,7 +5,7 @@ import "dayjs/locale/ru";
 import { Box, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 // components
-import Comment from "../../comment/comment";
+import Comment from "../../comment/components/comment";
 
 const Component = styled(Box)`
   width: 100%;
@@ -26,7 +26,7 @@ const Time = styled(Box)`
 const Title = styled(Box)`
   display: flex;
   gap: 8px;
-  -bottom: 20px;
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: bold;
 `;
@@ -51,7 +51,8 @@ const CommentTitle = styled(Typography)`
 `;
 
 const NoteContent = ({ note, author, comments }) => {
-  const filteredComments = comments.filter((comm) => comm.noteId === note?._id);
+ 
+  const filteredComments = comments?.filter((comm) => comm?.noteId === note?._id);
 
   const time = (date: string) => {
     return dayjs(date).locale("ru").format("DD MMMM YYYY,HH:mm");
@@ -62,15 +63,15 @@ const NoteContent = ({ note, author, comments }) => {
       {note ? (
         <>
           <Note>
-            <Time>{time(note.created_at)}</Time>
+            <Time>{time(note.createdAt)}</Time>
             <Title>{note.title}</Title>
             <Content>{note.content}</Content>
-            <Author>{author.name}</Author>
+            <Author>{author?.name}</Author>
           </Note>
           <Box>
             <CommentTitle>Комментарии</CommentTitle>
             {filteredComments.length ? (
-              filteredComments?.map((comm) => (
+              filteredComments.map((comm) => (
                 <Comment key={comm._id} comm={comm} />
               ))
             ) : (

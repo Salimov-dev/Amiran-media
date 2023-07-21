@@ -5,9 +5,9 @@ import notes from "../../shared/mockData/notes.json";
 import users from "../../shared/mockData/users.json";
 import comments from "../../shared/mockData/comments.json";
 import categories from "../../shared/mockData/categories.json";
-import { loadUsersList } from "../../shared/redux/store/users-store";
-import { loadCommentsList } from "../../shared/redux/store/comments-store";
-import { loadCategoriesList } from "../../shared/redux/store/categories-store";
+import { loadUsersList } from "../../entities/user/components/users-store";
+import { loadCommentsList } from "../../entities/comment/store/comments-store";
+import { loadCategoriesList } from "../../entities/categories/store/categories-store";
 
 interface AppLoaderProps {
   children: React.ReactNode;
@@ -17,10 +17,10 @@ const AppLoader = ({ children }: AppLoaderProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch<any>(loadNotesList(notes));
+    dispatch<any>(loadNotesList());
     dispatch<any>(loadUsersList(users));
-    dispatch<any>(loadCommentsList(comments));
-    dispatch<any>(loadCategoriesList(categories));
+    dispatch<any>(loadCommentsList());
+    dispatch<any>(loadCategoriesList());
   }, []);
 
   return children;

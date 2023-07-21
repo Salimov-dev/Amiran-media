@@ -54,10 +54,10 @@ const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
   const time = (date: string) => {
     return dayjs(date).format("HH:mm");
   };
-
+  
   return (
     <Component>
-      {notes.map((note: Note) => (
+      {notes?.map((note: Note) => (
         <NoteElement
           key={note._id}
           onClick={() => onSelectNote(note._id)}

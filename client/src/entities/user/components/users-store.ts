@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const usersListSlice = createSlice({
   name: "users",
@@ -24,7 +25,8 @@ const usersListSlice = createSlice({
 const { reducer: usersListReducer, actions } = usersListSlice;
 const { usersRequested, usersReceived, usersFailed } = actions;
 
-export const loadUsersList = (data) => async (dispatch) => {
+export const loadUsersList = () => async (dispatch) => {
+  const { data } = await axios("http://localhost:8080/api/user");
   dispatch(usersRequested());
   try {
     dispatch(usersReceived(data));
@@ -33,8 +35,9 @@ export const loadUsersList = (data) => async (dispatch) => {
   }
 };
 
-export const getNoteAuthor = (id) => (state) =>
-  state.users.entities.find((user) => user._id === id);
+export const getNoteAuthor = (id) => (state) => {
+  return state?.users.entities.find((user) => user._id === id);
+};
 
 export const getUsersList = () => (state) => state.users.entities;
 

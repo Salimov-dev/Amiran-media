@@ -15,7 +15,7 @@ import {
 import {
   getNoteAuthor,
   getUsersList,
-} from "../../entities/user/components/users-store";
+} from "../../entities/user/store/users-store";
 import { getCommentsList } from "../../entities/comment/store/comments-store";
 import { getCategoriesList } from "../../entities/categories/store/categories-store";
 
@@ -32,9 +32,6 @@ const Notes = () => {
   const users = useSelector(getUsersList());
   const comments = useSelector(getCommentsList());
   const categories = useSelector(getCategoriesList());
-  console.log("users", users);
-  console.log("selectedNote", selectedNote);
-  console.log("noteAuthor", noteAuthor);
 
   const handleSelectNote = (id: string) => {
     setSelectedNoteID(id);

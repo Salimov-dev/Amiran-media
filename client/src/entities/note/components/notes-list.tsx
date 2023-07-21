@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import { useSelector } from "react-redux";
+import { getCategoriesList } from "../../categories/store/categories-store";
 
 const Component = styled(Box)`
   width: 350px;
@@ -31,6 +33,10 @@ const SubTitle = styled(Box)`
   gap: 8px;
 `;
 
+const Category = styled(Box)`
+  font-style: italic;
+`;
+
 const Date = styled(Box)`
   font-weight: bold;
 `;
@@ -51,10 +57,16 @@ interface Note {
 }
 
 const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
+  const categories = useSelector(getCategoriesList());
+
+  const getCategoryName = (id) => {
+    return categories?.find((cat) => cat?._id === id)?.name;
+  };
+
   const time = (date: string) => {
     return dayjs(date).format("HH:mm");
   };
-  
+
   return (
     <Component>
       {notes?.map((note: Note) => (
@@ -79,6 +91,7 @@ const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
               {note.content}
             </CropContent>
           </SubTitle>
+          <Category>{getCategoryName(note.category)}</Category>
         </NoteElement>
       ))}
     </Component>

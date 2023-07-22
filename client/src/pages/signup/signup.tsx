@@ -82,7 +82,7 @@ const SignUp = () => {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     dispatch(signUp(data));
-    // dispatch(login({ payload: data }));
+    dispatch(login({ payload: data }));
     navigate("/");
   };
 

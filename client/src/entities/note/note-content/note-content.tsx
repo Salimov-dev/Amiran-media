@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // MUI
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
@@ -57,11 +57,20 @@ const NoteContent = ({ note, author }) => {
     dispatch(removeComment(commId));
   };
 
+  useEffect(() => {
+    setData("");
+  }, [note]);
+
   return (
     <Component>
       {note ? (
         <>
-          <Note note={note} author={author} user={currentUserData} getCategoryName={getCategoryName} />
+          <Note
+            note={note}
+            author={author}
+            user={currentUserData}
+            getCategoryName={getCategoryName}
+          />
           {currentUserData && (
             <CommentsBlock
               data={data}

@@ -2,20 +2,18 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// MUI
-import styled from "@emotion/styled";
-import {
-  Box,
-  Button,
-  Typography,
-  Paper,
-} from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+// MUI
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
+import styled from "@emotion/styled";
+import { Box, Button, Typography, Paper } from "@mui/material";
+// store
 import { createNote } from "../../entities/note/store/notes-store";
 import { getCurrentUserData } from "../../entities/user/store/users-store";
 import { getCategoriesList } from "../../entities/categories/store/categories-store";
+// components
 import NoteCreateForm from "./components/note-create-form";
 
 const Component = styled(Box)`
@@ -101,9 +99,12 @@ const NoteCreate = () => {
   const isFormValid = formState.isValid && isCategorySelected;
 
   return (
-    <>
+    <Box sx={{ marginTop: "75px" }}>
       <BackButton>
-        <Button onClick={handleNavigate}>Назад</Button>
+        <Button onClick={handleNavigate}>
+          <KeyboardArrowLeftOutlinedIcon />
+          Назад к статьям
+        </Button>
       </BackButton>
       <Component>
         <AuthForm>
@@ -121,7 +122,7 @@ const NoteCreate = () => {
           />
         </AuthForm>
       </Component>
-    </>
+    </Box>
   );
 };
 

@@ -1,9 +1,9 @@
 // libraries
-import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 // MUI
 import styled from "@emotion/styled";
@@ -52,7 +52,6 @@ const schema = yup.object().shape({
 });
 
 const SignUp = () => {
-
   const {
     register,
     formState: { errors },

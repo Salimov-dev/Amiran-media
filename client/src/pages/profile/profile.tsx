@@ -1,7 +1,11 @@
-import { Box, Button, Typography, Paper } from "@mui/material";
-import styled from "@emotion/styled";
+// libraries
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// MUI
+import styled from "@emotion/styled";
+import { Box, Button, Typography, Paper } from "@mui/material";
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
+// store
 import { getCurrentUserData } from "../../entities/user/store/users-store";
 
 const Component = styled(Box)`
@@ -53,9 +57,12 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <Box sx={{ marginTop: "75px" }}>
       <BackButton>
-        <Button onClick={handleNavigate}>Вернуться к статьям</Button>
+        <Button onClick={handleNavigate}>
+          <KeyboardArrowLeftOutlinedIcon />
+          Вернуться к статьям
+        </Button>
       </BackButton>
       <Component>
         <ProfileContainer>
@@ -67,10 +74,12 @@ const Profile = () => {
             <Typography fontWeight={700}>E-mail: </Typography>{" "}
             {currentUser?.email}
           </Info>
-          <ButtonStyled type="submit" onClick={handleEditProfile}>Редактировать</ButtonStyled>
+          <ButtonStyled type="submit" onClick={handleEditProfile}>
+            Редактировать
+          </ButtonStyled>
         </ProfileContainer>
       </Component>
-    </>
+    </Box>
   );
 };
 

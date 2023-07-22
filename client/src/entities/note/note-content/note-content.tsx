@@ -13,6 +13,7 @@ import {
   removeComment,
 } from "../../comment/store/comments-store";
 import CommentsBlock from "./components/comments-block";
+import { getCategoriesList } from "../../categories/store/categories-store";
 
 const Component = styled(Box)`
   width: 100%;
@@ -26,6 +27,11 @@ const NoteContent = ({ note, author }) => {
   const [data, setData] = useState("");
   const currentUserData = useSelector(getCurrentUserData());
   const dispatch = useDispatch();
+
+  const categories = useSelector(getCategoriesList());
+  const getCategoryName = (id) => {
+    return categories?.find((cat) => cat?._id === id)?.name;
+  };
 
   const filteredComments = comments?.filter(
     (comm) => comm?.noteId === note?._id
@@ -43,9 +49,7 @@ const NoteContent = ({ note, author }) => {
       userId: currentUserData._id,
       noteId: note._id,
     };
-
     dispatch(createComment(newComment));
-
     setData("");
   };
 
@@ -57,7 +61,7 @@ const NoteContent = ({ note, author }) => {
     <Component>
       {note ? (
         <>
-          <Note note={note} author={author} user={currentUserData} />
+          <Note note={note} author={author} user={currentUserData} getCategoryName={getCategoryName} />
           {currentUserData && (
             <CommentsBlock
               data={data}

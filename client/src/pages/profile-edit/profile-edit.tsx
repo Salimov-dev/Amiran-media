@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 // MUI
 import { Box, Button, Paper } from "@mui/material";
 import styled from "@emotion/styled";
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 // store
 import {
   getCurrentUserData,
   updateUser,
 } from "../../entities/user/store/users-store";
+// components
 import ProfileEditForm from "./components/profile-edit-form";
-import { useForm } from "react-hook-form";
 
 const Component = styled(Box)`
   display: flex;
@@ -71,9 +72,12 @@ const ProfileEdit = () => {
   }, [currentUser]);
 
   return (
-    <>
+    <Box sx={{ marginTop: "75px" }}>
       <BackButton>
-        <Button onClick={handleNavigate}>Назад</Button>
+        <Button onClick={handleNavigate}>
+          <KeyboardArrowLeftOutlinedIcon  />
+          Отменить
+        </Button>
       </BackButton>
       <Component>
         <ProfileContainer>
@@ -85,7 +89,7 @@ const ProfileEdit = () => {
           />
         </ProfileContainer>
       </Component>
-    </>
+    </Box>
   );
 };
 

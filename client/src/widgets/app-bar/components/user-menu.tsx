@@ -45,6 +45,7 @@ const UserMenu = ({ currentUser }) => {
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logOut());
+    navigate("/")
   };
 
   return (

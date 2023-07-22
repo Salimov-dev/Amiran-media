@@ -122,7 +122,7 @@ export const loadUsersList = () => async (dispatch) => {
     const { content } = await userService.get();
     setTimeout(() => {
       dispatch(usersReceived(content));
-    }, 1000);
+    }, 500);
   } catch (error) {
     dispatch(usersFailed(error.message));
   }

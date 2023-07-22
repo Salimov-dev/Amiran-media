@@ -16,7 +16,7 @@ router.route("/").get(async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const newComment = await Comment.create({
       ...req.body,
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:commentId", async (req, res) => {
+router.delete("/:commentId", auth, async (req, res) => {
   try {
     const { commentId } = req.params;
     await Comment.findByIdAndRemove(commentId);

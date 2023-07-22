@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+// store
 import { loadNotesList } from "../../entities/note/store/notes-store";
-import users from "../../shared/mockData/users.json";
-import { loadUsersList } from "../../entities/user/store/users-store";
 import { loadCommentsList } from "../../entities/comment/store/comments-store";
 import { loadCategoriesList } from "../../entities/categories/store/categories-store";
 
@@ -15,7 +14,6 @@ const AppLoader = ({ children }: AppLoaderProps) => {
 
   useEffect(() => {
     dispatch<any>(loadNotesList());
-    dispatch<any>(loadUsersList(users));
     dispatch<any>(loadCommentsList());
     dispatch<any>(loadCategoriesList());
   }, []);

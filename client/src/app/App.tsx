@@ -32,6 +32,7 @@ const AppStyled = styled(Box)`
 `;
 
 function App() {
+  
   return (
     <AppStyled>
       <AppLoader>
@@ -67,6 +68,8 @@ function App() {
               <Route path={":noteId/edit"} element={<NoteEdit />} />
               <Route path="*" element={<Navigate to="" />} />
             </Route>
+
+            <Route index path="*" element={<Notes />} />
           </Routes>
         </BrowserRouter>
       </AppLoader>

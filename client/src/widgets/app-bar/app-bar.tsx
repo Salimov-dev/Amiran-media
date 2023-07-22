@@ -1,6 +1,7 @@
 // libraries
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
 import { AppBar, Box, Toolbar, Button, TextField } from "@mui/material";
@@ -12,6 +13,7 @@ import {
 // components
 import UserMenu from "./components/user-menu";
 import Loader from "../loader";
+import { setSearchQuery } from "../../shared/redux/store/search-query-store";
 
 const ToolbarStyled = styled(Toolbar)`
   display: flex;
@@ -36,11 +38,13 @@ const ToolbarStyled = styled(Toolbar)`
 `;
 
 const Appbar = () => {
+  const [data, setData] = useState("");
   const currentUser = useSelector(getCurrentUserData());
   const isLoading = useSelector(getUsersLoadingStatus());
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("currentUser", currentUser);
-  
+  const location = useLocation();
+  const shouldHideButton = location.pathname === "/note/create";
 
   const handleGoToLogin = () => {
     navigate("auth/login");
@@ -49,6 +53,10 @@ const Appbar = () => {
   const handleCreateNote = () => {
     navigate("note/create");
   };
+
+  useEffect(() => {
+    dispatch(setSearchQuery(data));
+  }, [data]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -59,12 +67,20 @@ const Appbar = () => {
             label="Найти статью"
             variant="outlined"
             size="small"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
           />
 
-          {currentUser && (
-            <Button onClick={handleCreateNote} variant="contained">
+          {currentUser ? (
+            <Button
+              onClick={handleCreateNote}
+              variant="contained"
+              disabled={shouldHideButton}
+            >
               Добавить статью
             </Button>
+          ) : (
+            shouldHideButton && <Loader />
           )}
 
           {!isLoading ? (

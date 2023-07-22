@@ -37,4 +37,5 @@ export const loadCategoriesList = () => async (dispatch) => {
 
 export const getCategoriesList = () => (state) => state.categories.entities;
 
+
 export default categoriesListReducer;

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
 import { Box, Button, Typography, Paper } from "@mui/material";
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 // components
 import NoteEditForm from "./components/note-edit-form";
 // store
@@ -84,9 +85,11 @@ const NoteEdit = () => {
   };
 
   return (
-    <>
+    <Box sx={{ marginTop: "75px" }}>
       <BackButton>
-        <Button onClick={handleNavigate}>Назад</Button>
+        <Button onClick={handleNavigate}>
+          <KeyboardArrowLeftOutlinedIcon /> Отменить
+        </Button>
       </BackButton>
       <Component>
         <AuthForm>
@@ -101,7 +104,7 @@ const NoteEdit = () => {
           />
         </AuthForm>
       </Component>
-    </>
+    </Box>
   );
 };
 

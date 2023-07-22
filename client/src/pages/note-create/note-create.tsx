@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
 import { Box, Button, Typography, Paper, TextField } from "@mui/material";
-import { createNote } from "../../entities/note/store/notes-store";
+import { createNote, getCreatedNoteId } from "../../entities/note/store/notes-store";
 import { getCurrentUserData } from "../../entities/user/store/users-store";
 
 const Component = styled(Box)`
@@ -44,6 +44,9 @@ const Enter = styled(Button)`
 const NoteCreate = () => {
   const [data, setData] = useState({ title: "", content: "" });
   const currentUserData = useSelector(getCurrentUserData());
+  // const createdNoteId = useSelector(getCreatedNoteId())
+  // console.log("createdNoteId", createdNoteId);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,7 +55,7 @@ const NoteCreate = () => {
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleNavigate = () => {
-    navigate("/");
+    navigate(createdNoteId);
   };
 
   const handleSubmit = (e) => {
@@ -64,7 +67,9 @@ const NoteCreate = () => {
         category: "67rdca3eeb7f6fgeed471818",
       })
     );
-    // navigate("/");
+
+    
+    navigate("/");
   };
   return (
     <>

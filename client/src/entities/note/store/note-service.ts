@@ -10,8 +10,10 @@ const noteService = {
     const { data } = await httpService.post(noteEndpoint + "create", payload);
     return data;
   },
-  remove: async (NoteId) => {
-    const { data } = await httpService.delete(noteEndpoint + NoteId);
+  remove: async (noteId) => {
+    const { data } = await httpService.delete(noteEndpoint + noteId);
+    console.log("data", data);
+    
     return data;
   },
 };

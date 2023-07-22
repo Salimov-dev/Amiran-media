@@ -1,6 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import noteService from "./note-service";
+import { setSelectedNoteList } from "../../../shared/redux/store/selected-note-store";
 
 const notesListSlice = createSlice({
   name: "notes",
@@ -23,20 +23,25 @@ const notesListSlice = createSlice({
     noteCreated: (state, action) => {
       state.entities.push(action.payload);
     },
+    noteRemoved: (state, action) => {
+      state.entities = state.entities.filter(
+        (note) => note._id !== action.payload
+      );
+    },
   },
 });
 
 const addNoteRequested = createAction("notes/addNoteRequested");
+const removeNoteRequested = createAction("notes/removeNoteRequested");
 const noteRequestFailed = createAction("notes/noteRequestFailed");
 
 const { reducer: notesListReducer, actions } = notesListSlice;
-const { notesRequested, notesReceived, notesFailed } = actions;
+const { notesRequested, noteCreated, notesReceived, notesFailed, noteRemoved } =
+  actions;
 
 export const loadNotesList = () => async (dispatch) => {
   dispatch(notesRequested());
   try {
-    // const { data } = await axios("http://localhost:8080/api/note");
-    // dispatch(notesReceived(data));
     const { content } = await noteService.get();
     dispatch(notesReceived(content));
   } catch (error) {
@@ -46,32 +51,33 @@ export const loadNotesList = () => async (dispatch) => {
 
 export const createNote = (payload) => async (dispatch) => {
   dispatch(addNoteRequested());
-
   try {
     const { content } = await noteService.create(payload);
-
+    dispatch(setSelectedNoteList(content._id))
     dispatch(noteCreated(content));
   } catch (error) {
     dispatch(noteRequestFailed(error.message));
   }
 };
 
-// export const removeComment = (commentId) => async (dispatch) => {
-//   dispatch(removeCommentRequested());
-//   try {
-//       const { content } = await commentService.removeComment(commentId);
-//       if (!content) {
-//           dispatch(commentRemoved(commentId));
-//       }
-//   } catch (error) {
-//       dispatch(commentsRequestFiled(error.message));
-//   }
-// };
+export const removeNote = (noteId) => async (dispatch) => {
+  dispatch(removeNoteRequested());
+  try {
+    dispatch(noteRemoved(noteId));
+    await noteService.remove(noteId);
+  } catch (error) {
+    dispatch(noteRequestFailed(error.message));
+  }
+};
 
 export const getSelectedNote = (id) => (state) => {
   const selectedNote = state.notes.entities.find((note) => note._id === id);
   return selectedNote;
 };
+
+// export const getCreatedNoteId = () => (state) => {
+//   return state.notes.entities[state.notes.entities.length - 1];
+// };
 
 export const getNotesList = () => (state) => state.notes.entities;
 

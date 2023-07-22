@@ -4,7 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
-import { AppBar, Box, Toolbar, Button, TextField } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Button,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 // store
 import {
   getCurrentUserData,
@@ -37,6 +45,11 @@ const ToolbarStyled = styled(Toolbar)`
   }
 `;
 
+const TextFieldContainer = styled.div`
+  position: relative;
+  min-width: 200px; /* Set your desired minimum width here */
+`;
+
 const Appbar = () => {
   const [data, setData] = useState("");
   const currentUser = useSelector(getCurrentUserData());
@@ -62,14 +75,32 @@ const Appbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
         <ToolbarStyled>
-          <TextField
-            id="search"
-            label="Найти статью"
-            variant="outlined"
-            size="small"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-          />
+          <TextFieldContainer>
+            <TextField
+              id="search"
+              label="Найти статью"
+              variant="outlined"
+              size="small"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
+            {data && (
+              <InputAdornment position="end">
+                <ClearOutlinedIcon
+                  sx={{
+                    color: "gray",
+                    width: "20px",
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    right: "10px",
+                  }}
+                  onClick={() => setData("")}
+                />
+              </InputAdornment>
+            )}
+          </TextFieldContainer>
 
           {currentUser ? (
             <Button

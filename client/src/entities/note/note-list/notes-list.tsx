@@ -16,7 +16,7 @@ import Loader from "../../../widgets/loader";
 const Component = styled(Box)`
   width: 350px;
   position: fixed;
-  top: 75px;
+  top: 71px;
   direction: rtl; /* Add the semicolon here */
   background-color: #f9f9f7;
   border-right: 1px solid #cecece;

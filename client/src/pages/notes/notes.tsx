@@ -1,6 +1,5 @@
 // libraries
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 // MUI
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
@@ -12,12 +11,8 @@ import {
   getNotesList,
   getSelectedNote,
 } from "../../entities/note/store/notes-store";
-import {
-  getNoteAuthor,
-  getUsersList,
-} from "../../entities/user/store/users-store";
+import { getNoteAuthor } from "../../entities/user/store/users-store";
 import { getCommentsList } from "../../entities/comment/store/comments-store";
-import { getCategoriesList } from "../../entities/categories/store/categories-store";
 import {
   getSelectedNoteId,
   setSelectedNoteList,
@@ -33,9 +28,7 @@ const Notes = () => {
   const selectedNote = useSelector(getSelectedNote(selectedNoteID));
   const noteAuthor = useSelector(getNoteAuthor(selectedNote?.userId));
   const notes = useSelector(getNotesList());
-  const users = useSelector(getUsersList());
   const comments = useSelector(getCommentsList());
-  const categories = useSelector(getCategoriesList());
 
   const dispatch = useDispatch();
 

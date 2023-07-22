@@ -57,7 +57,7 @@ interface Note {
 
 const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
   const categories = useSelector(getCategoriesList());
-
+  
   const getCategoryName = (id) => {
     return categories?.find((cat) => cat?._id === id)?.name;
   };

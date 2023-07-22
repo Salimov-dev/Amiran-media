@@ -1,4 +1,4 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const selectedNoteSlice = createSlice({
   name: "selectedNote",
@@ -20,11 +20,17 @@ const { selectedNoteReceived } = actions;
 export const setSelectedNoteList = (noteId) => async (dispatch) => {
   try {
     await dispatch(selectedNoteReceived(noteId));
+    localStorage.setItem("selectedNoteId", noteId);
   } catch (error) {}
 };
 
 export const getSelectedNoteId = () => (state) => {
-  return state.selectedNote.entities;
+  const selectedNoteStorage = localStorage.getItem("selectedNoteId");
+  if (selectedNoteStorage) {
+    return selectedNoteStorage;
+  } else {
+    return state.selectedNote.entities;
+  }
 };
 
 export default selectedNoteReducer;

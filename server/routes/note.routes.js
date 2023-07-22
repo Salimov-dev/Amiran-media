@@ -26,6 +26,23 @@ router.post("/create", auth, async (req, res) => {
   }
 });
 
+router.patch("/:noteId/edit", auth, async (req, res) => {
+  try {
+    const { noteId } = req.params;
+    const updatedNote = await Note.findByIdAndUpdate(noteId, req.body, {
+      new: true,
+    });
+    if (!updatedNote) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+    res.send(updatedNote);
+  } catch (e) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка, попробуйте позже",
+    });
+  }
+});
+
 router.delete("/:noteId?", auth, async (req, res) => {
   try {
     const { noteId } = req.params;

@@ -8,12 +8,20 @@ const noteService = {
   },
   create: async (payload) => {
     const { data } = await httpService.post(noteEndpoint + "create", payload);
+
+    return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.patch(
+      noteEndpoint + payload.noteId + "/edit",
+      payload
+    );
     return data;
   },
   remove: async (noteId) => {
     const { data } = await httpService.delete(noteEndpoint + noteId);
     console.log("data", data);
-    
+
     return data;
   },
 };

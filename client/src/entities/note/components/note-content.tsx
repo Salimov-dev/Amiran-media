@@ -96,6 +96,10 @@ const NoteContent = ({ note, author, comments }) => {
     navigate("/")
   };
 
+  const handleEditNote = () => {
+    navigate(`/note/${note._id}/edit`);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -113,10 +117,10 @@ const NoteContent = ({ note, author, comments }) => {
             <Title>{note.title}</Title>
             <Content>{note.content}</Content>
 
-            {note.userId === currentUserData._id && (
+            {note?.userId === currentUserData?._id && (
               <>
                 <Buttons>
-                  <Button>Редактировать</Button>
+                  <Button onClick={handleEditNote}>Редактировать</Button>
                   <Button onClick={handleClickOpen}>Удалить</Button>
 
                   <Dialog

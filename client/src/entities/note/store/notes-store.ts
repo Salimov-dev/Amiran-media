@@ -1,6 +1,10 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import noteService from "./note-service";
-import { setSelectedNoteList } from "../../../shared/redux/store/selected-note-store";
+import {
+  getSelectedNoteId,
+  setSelectedNoteList,
+} from "../../../shared/redux/store/selected-note-store";
+import { useSelector } from "react-redux";
 
 const notesListSlice = createSlice({
   name: "notes",
@@ -23,6 +27,11 @@ const notesListSlice = createSlice({
     noteCreated: (state, action) => {
       state.entities.push(action.payload);
     },
+    noteUpdateSuccessed: (state, action) => {
+      state.entities[
+        state.entities.findIndex((note) => note._id === action.payload._id)
+      ] = action.payload;
+    },
     noteRemoved: (state, action) => {
       state.entities = state.entities.filter(
         (note) => note._id !== action.payload
@@ -34,10 +43,18 @@ const notesListSlice = createSlice({
 const addNoteRequested = createAction("notes/addNoteRequested");
 const removeNoteRequested = createAction("notes/removeNoteRequested");
 const noteRequestFailed = createAction("notes/noteRequestFailed");
+const noteUpdateRequested = createAction("notes/noteUpdateRequested");
+const noteUpdateFailed = createAction("notes/noteUpdateFailed");
 
 const { reducer: notesListReducer, actions } = notesListSlice;
-const { notesRequested, noteCreated, notesReceived, notesFailed, noteRemoved } =
-  actions;
+const {
+  notesRequested,
+  noteCreated,
+  notesReceived,
+  notesFailed,
+  noteRemoved,
+  noteUpdateSuccessed,
+} = actions;
 
 export const loadNotesList = () => async (dispatch) => {
   dispatch(notesRequested());
@@ -53,10 +70,21 @@ export const createNote = (payload) => async (dispatch) => {
   dispatch(addNoteRequested());
   try {
     const { content } = await noteService.create(payload);
-    dispatch(setSelectedNoteList(content._id))
+    dispatch(setSelectedNoteList(content._id));
     dispatch(noteCreated(content));
   } catch (error) {
     dispatch(noteRequestFailed(error.message));
+  }
+};
+
+export const updateNote = (payload) => async (dispatch) => {
+  dispatch(noteUpdateRequested());
+  try {
+    const { content } = await noteService.update(payload);
+
+    dispatch(noteUpdateSuccessed(content));
+  } catch (error) {
+    dispatch(noteUpdateFailed(error.message));
   }
 };
 
@@ -74,10 +102,6 @@ export const getSelectedNote = (id) => (state) => {
   const selectedNote = state.notes.entities.find((note) => note._id === id);
   return selectedNote;
 };
-
-// export const getCreatedNoteId = () => (state) => {
-//   return state.notes.entities[state.notes.entities.length - 1];
-// };
 
 export const getNotesList = () => (state) => state.notes.entities;
 

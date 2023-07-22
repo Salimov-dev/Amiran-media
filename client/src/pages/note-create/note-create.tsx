@@ -4,9 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
-import { Box, Button, Typography, Paper, TextField } from "@mui/material";
-import { createNote, getCreatedNoteId } from "../../entities/note/store/notes-store";
+import {
+  Box,
+  Button,
+  Typography,
+  Paper,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  FormControl,
+} from "@mui/material";
+import {
+  createNote,
+  getCreatedNoteId,
+} from "../../entities/note/store/notes-store";
 import { getCurrentUserData } from "../../entities/user/store/users-store";
+import { getCategoriesList } from "../../entities/categories/store/categories-store";
 
 const Component = styled(Box)`
   display: flex;
@@ -42,11 +57,10 @@ const Enter = styled(Button)`
 `;
 
 const NoteCreate = () => {
-  const [data, setData] = useState({ title: "", content: "" });
+  const [data, setData] = useState({ title: "", content: "", category: "" });
   const currentUserData = useSelector(getCurrentUserData());
-  // const createdNoteId = useSelector(getCreatedNoteId())
-  // console.log("createdNoteId", createdNoteId);
-  
+  const categories = useSelector(getCategoriesList());
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -55,22 +69,22 @@ const NoteCreate = () => {
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleNavigate = () => {
-    navigate(createdNoteId);
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(
       createNote({
         ...data,
         userId: currentUserData._id,
-        category: "67rdca3eeb7f6fgeed471818",
       })
     );
 
-    
     navigate("/");
   };
+
   return (
     <>
       <BackButton>
@@ -107,6 +121,23 @@ const NoteCreate = () => {
               multiline
               rows={10}
             />
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Категория</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="category"
+                label="Категория"
+                name="category"
+                value={data.category}
+                onChange={handleChange}
+              >
+                {categories.map((categ) => (
+                  <MenuItem key={categ._id} value={categ._id}>
+                    {categ.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <ButtonContainer>
               <Enter type="submit" variant="contained">
                 Опубликовать

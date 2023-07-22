@@ -2,6 +2,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 // MUI
 import styled from "@emotion/styled";
 import { Box, Button, Typography, Paper } from "@mui/material";
@@ -33,31 +36,35 @@ const BackButton = styled(Box)`
   padding: 20px 0 0 20px;
 `;
 
-// const schema = yup.object().shape({
-//   name: yup
-//     .string()
-//     .matches(/^([^0-9]*$)/, "Имя не должно содержать цифры")
-//     .required("Имя обязательно для заполнения"),
-//   email: yup
-//     .string()
-//     .email("Введите email корректно")
-//     .required("Email обязателен для заполнения"),
-//   password: yup
-//     .string()
-//     .min(8, "Слишком короткий пароль - введите не менее 8 символов")
-//     // .minLowercase(
-//     //   1,
-//     //   "Пароль должен содержать минимум 1 символ в нижнем регистре"
-//     // )
-//     // .minUppercase(
-//     //   1,
-//     //   "Пароль должен содержать минимум 1 символ в вверхнем регистре"
-//     // )
-//     // .minNumbers(1, "Пароль должен содержать минимум 1 цифру")
-//     .required("Пароль обязателен для заполнения"),
-// });
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .matches(/^([^0-9]*$)/, "Имя не должно содержать цифры")
+    .required("Имя обязательно для заполнения"),
+  email: yup
+    .string()
+    .email("Введите email корректно")
+    .required("Email обязателен для заполнения"),
+  password: yup
+    .string()
+    .min(8, "Слишком короткий пароль - введите не менее 8 символов")
+    .required("Пароль обязателен для заполнения"),
+});
 
 const SignUp = () => {
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -84,6 +91,8 @@ const SignUp = () => {
     navigate("/");
   };
 
+  const isFormValid = !Object.keys(errors).length;
+
   return (
     <>
       <BackButton>
@@ -98,6 +107,9 @@ const SignUp = () => {
             data={data}
             onSubmit={handleSubmit}
             onChange={handleChange}
+            errors={errors}
+            register={register}
+            isFormValid={isFormValid}
           />
         </AuthForm>
       </Component>

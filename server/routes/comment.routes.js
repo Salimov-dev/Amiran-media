@@ -4,32 +4,31 @@ const auth = require("../middleware/auth.middleware");
 
 const router = express.Router({ mergeParams: true });
 
-router
-  .route("/")
-  .get(async (req, res) => {
-    try {
-      const { orderBy, equalTo } = req.query;
-      const list = await Comment.find({ [orderBy]: equalTo });
-      res.status(200).send(list);
-    } catch (e) {
-      res.status(500).json({
-        message: "На сервере произошла ошибка. Попробуйте позже",
-      });
-    }
-  })
-  .post(async (req, res) => {
-    try {
-      const newComment = await Comment.create({
-        ...req.body,
-        userId: req.user._id,
-      });
-      res.status(201).send(newComment);
-    } catch (e) {
-      res.status(500).json({
-        message: "На сервере произошла ошибка. Попробуйте позже",
-      });
-    }
-  });
+router.route("/").get(async (req, res) => {
+  try {
+    const { orderBy, equalTo } = req.query;
+    const list = await Comment.find({ [orderBy]: equalTo });
+    res.status(200).send(list);
+  } catch (e) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const newComment = await Comment.create({
+      ...req.body,
+    });
+    res.status(201).send(newComment);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
 
 router.delete("/:commentId", async (req, res) => {
   try {

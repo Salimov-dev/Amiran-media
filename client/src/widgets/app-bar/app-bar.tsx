@@ -31,6 +31,7 @@ const ToolbarStyled = styled(Toolbar)`
 const Appbar = () => {
   const currentUser = useSelector(getCurrentUserData());
   const navigate = useNavigate();
+  
 
   const handleGoToLogin = () => {
     navigate("auth/login");
@@ -51,7 +52,7 @@ const Appbar = () => {
             size="small"
           />
 
-          <Button onClick={handleCreateNote} variant="contained">Добавить статью</Button>
+          {currentUser && <Button onClick={handleCreateNote} variant="contained">Добавить статью</Button>}
 
           {currentUser ? (
             <UserMenu currentUser={currentUser} />

@@ -9,19 +9,14 @@ import {
   Button,
   Typography,
   Paper,
-  TextField,
-  InputLabel,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-  FormControl,
 } from "@mui/material";
-import {
-  createNote,
-  getCreatedNoteId,
-} from "../../entities/note/store/notes-store";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createNote } from "../../entities/note/store/notes-store";
 import { getCurrentUserData } from "../../entities/user/store/users-store";
 import { getCategoriesList } from "../../entities/categories/store/categories-store";
+import NoteCreateForm from "./components/note-create-form";
 
 const Component = styled(Box)`
   display: flex;
@@ -47,16 +42,33 @@ const BackButton = styled(Box)`
   padding: 20px 0 0 20px;
 `;
 
-const ButtonContainer = styled(Box)`
-  margin-left: auto;
-`;
-
-const Enter = styled(Button)`
-  width: 200px;
-  margin-top: 20px;
-`;
+const schema = yup.object().shape({
+  title: yup
+    .string()
+    .min(10, "Минимум 10 символов")
+    .max(20, "Максимум 30 символов")
+    .required("Имя обязательно для заполнения"),
+  content: yup
+    .string()
+    .min(10, "Минимум 15 символов")
+    .max(500, "Максимум 500 символов")
+    .required("Фамилия обязательна для заполнения"),
+});
 
 const NoteCreate = () => {
+  const {
+    register,
+    formState,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      content: "",
+    },
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
+
   const [data, setData] = useState({ title: "", content: "", category: "" });
   const currentUserData = useSelector(getCurrentUserData());
   const categories = useSelector(getCategoriesList());
@@ -85,6 +97,9 @@ const NoteCreate = () => {
     navigate("/");
   };
 
+  const isCategorySelected = !!data.category;
+  const isFormValid = formState.isValid && isCategorySelected;
+
   return (
     <>
       <BackButton>
@@ -95,55 +110,15 @@ const NoteCreate = () => {
           <Title>
             <Typography variant="h5">Напишите свою статью</Typography>
           </Title>
-          <form
+          <NoteCreateForm
+            data={data}
             onSubmit={handleSubmit}
-            style={{
-              display: "flex",
-              padding: "20px",
-              gap: "10px",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              label="Тема"
-              id="title"
-              name="title"
-              value={data.title}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Содержание"
-              id="content"
-              name="content"
-              value={data.content}
-              onChange={handleChange}
-              multiline
-              rows={10}
-            />
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Категория</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="category"
-                label="Категория"
-                name="category"
-                value={data.category}
-                onChange={handleChange}
-              >
-                {categories.map((categ) => (
-                  <MenuItem key={categ._id} value={categ._id}>
-                    {categ.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <ButtonContainer>
-              <Enter type="submit" variant="contained">
-                Опубликовать
-              </Enter>
-            </ButtonContainer>
-          </form>
+            onChange={handleChange}
+            categories={categories}
+            errors={errors}
+            register={register}
+            isFormValid={isFormValid}
+          />
         </AuthForm>
       </Component>
     </>

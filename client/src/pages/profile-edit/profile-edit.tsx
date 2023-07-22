@@ -11,6 +11,7 @@ import {
   updateUser,
 } from "../../entities/user/store/users-store";
 import ProfileEditForm from "./components/profile-edit-form";
+import { useForm } from "react-hook-form";
 
 const Component = styled(Box)`
   display: flex;

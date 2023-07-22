@@ -87,7 +87,9 @@ const NoteContent = ({ note, author, comments }) => {
                   multiline
                   rows={2}
                 />
-                <Button type="submit">Опубликовать</Button>
+                <Button type="submit" disabled={!data.length}>
+                  Опубликовать
+                </Button>
               </form>
             </CreateNewComment>
 

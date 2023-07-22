@@ -6,7 +6,14 @@ const Enter = styled(Button)`
   margin-top: 20px;
 `;
 
-const LoginForm = ({ data, onSubmit, onChange }) => {
+const LoginForm = ({
+  data,
+  onSubmit,
+  onChange,
+  errors,
+  register,
+  isFormValid,
+}) => {
   return (
     <form
       onSubmit={onSubmit}
@@ -19,20 +26,27 @@ const LoginForm = ({ data, onSubmit, onChange }) => {
       }}
     >
       <TextField
+        {...register("email")}
         label="E-mail"
         id="email"
         name="email"
         value={data.email}
         onChange={onChange}
+        error={!!errors?.email}
+        helperText={errors?.email?.message}
       />
       <TextField
+        {...register("password")}
         label="Пароль"
         id="password"
         name="password"
+        type="password"
         value={data.password}
         onChange={onChange}
+        error={!!errors?.password}
+        helperText={errors?.password?.message}
       />
-      <Enter type="submit" variant="contained">
+      <Enter type="submit" variant="contained" disabled={!isFormValid}>
         Войти
       </Enter>
       <AccountLogin />

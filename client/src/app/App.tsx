@@ -70,9 +70,7 @@ function App() {
 
             <Route path="comment">
               <Route path={"create"} />
-    
             </Route>
-
           </Routes>
         </BrowserRouter>
       </AppLoader>

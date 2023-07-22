@@ -4,8 +4,6 @@ import "dayjs/locale/ru";
 // MUI
 import { Box, Paper, Divider } from "@mui/material";
 import styled from "@emotion/styled";
-// import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import ClearIcon from "@mui/icons-material/Clear"
 // store
 import { getNoteAuthor } from "../../user/store/users-store";
 import { useSelector } from "react-redux";
@@ -49,7 +47,12 @@ const Avatar = styled(`img`)({
   marginRight: "10px",
 });
 
+
+
 const Comment = ({ comm }) => {
+
+  
+
   const time = (date: string) => {
     return dayjs(date).locale("ru").format("DD.MM.YYYY в HH:mm");
   };
@@ -58,9 +61,8 @@ const Comment = ({ comm }) => {
     <Component>
       <Container>
         <AuthorInfo>
-          {/* <img src={ClearOutlinedIcon} alt="" /> */}
-          {/* <ClearOutlinedIcon/> */}
-          <ClearIcon/>
+
+          {/* <ClearIcon/> */}
           <Avatar src={useSelector(getNoteAuthor(comm.userId))?.image} />
           <CommentContent>{comm.comment}</CommentContent>
         </AuthorInfo>

@@ -89,6 +89,7 @@ export const login =
       const data = await authService.login({ email, password });
       localStorageService.setTokens(data);
       dispatch(authRequestSuccess({ userId: data.userId }));
+      dispatch(loadUsersList());
     } catch (error) {
       const { code, message } = error.response.data.error;
       if (code === 400) {
@@ -119,7 +120,9 @@ export const loadUsersList = () => async (dispatch) => {
   dispatch(usersRequested());
   try {
     const { content } = await userService.get();
-    dispatch(usersReceived(content));
+    setTimeout(() => {
+      dispatch(usersReceived(content));
+    }, 1000);
   } catch (error) {
     dispatch(usersFailed(error.message));
   }

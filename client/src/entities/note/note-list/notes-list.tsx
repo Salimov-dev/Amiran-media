@@ -7,6 +7,8 @@ import styled from "@emotion/styled";
 // store
 import { useSelector } from "react-redux";
 import { getCategoriesList } from "../../categories/store/categories-store";
+import { getIsLoadingNotesList } from "../store/notes-store";
+import Loader from "../../../widgets/loader";
 
 const Component = styled(Box)`
   width: 350px;
@@ -76,6 +78,10 @@ const CropContent = styled(Box)`
   text-overflow: ellipsis;
 `;
 
+const LoaderContainer = styled(Box)`
+  margin: auto;
+`;
+
 interface Note {
   _id: string;
   title: string;
@@ -86,6 +92,7 @@ interface Note {
 
 const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
   const categories = useSelector(getCategoriesList());
+  const isLoading = useSelector(getIsLoadingNotesList());
 
   const getCategoryName = (id) => {
     return categories?.find((cat) => cat?._id === id)?.name;
@@ -104,31 +111,37 @@ const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
 
   return (
     <Component>
-      {notes?.map((note: Note) => (
-        <NoteElement
-          key={note._id}
-          onClick={() => onSelectNote(note._id)}
-          sx={{
-            backgroundColor:
-              note._id === selectedNoteID ? "#dfdfdd" : "inherit",
-            color: note._id === selectedNoteID ? "black" : "inherit",
-          }}
-        >
-          <Title>{note.title}</Title>
-          <SubTitle>
-            <Date>{time(note.created_at)}</Date>
-            <CropContent
-              className="cropContent"
-              sx={{
-                color: note._id === selectedNoteID ? "black" : "#cecece",
-              }}
-            >
-              {note.content}
-            </CropContent>
-          </SubTitle>
-          <Category>{getCategoryName(note.category)}</Category>
-        </NoteElement>
-      ))}
+      {!isLoading ? (
+        notes?.map((note: Note) => (
+          <NoteElement
+            key={note._id}
+            onClick={() => onSelectNote(note._id)}
+            sx={{
+              backgroundColor:
+                note._id === selectedNoteID ? "#dfdfdd" : "inherit",
+              color: note._id === selectedNoteID ? "black" : "inherit",
+            }}
+          >
+            <Title>{note.title}</Title>
+            <SubTitle>
+              <Date>{time(note.created_at)}</Date>
+              <CropContent
+                className="cropContent"
+                sx={{
+                  color: note._id === selectedNoteID ? "black" : "#cecece",
+                }}
+              >
+                {note.content}
+              </CropContent>
+            </SubTitle>
+            <Category>{getCategoryName(note.category)}</Category>
+          </NoteElement>
+        ))
+      ) : (
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer>
+      )}
     </Component>
   );
 };

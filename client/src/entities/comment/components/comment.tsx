@@ -25,6 +25,7 @@ const Container = styled(Paper)`
 const CommentContent = styled(Box)`
   display: flex;
   align-items: center;
+  padding-right: 30px;
 `;
 
 const CommentInfo = styled(Box)`
@@ -76,10 +77,8 @@ const Comment = ({ comm, user, onRemoveComment }) => {
         </AuthorInfo>
         <Divider />
         <CommentInfo>
-          <CommentContent>
-            {useSelector(getNoteAuthor(comm.userId))?.name},
-          </CommentContent>
-          <CommentContent>{time(comm.created_at)}</CommentContent>
+          <Box>{useSelector(getNoteAuthor(comm.userId))?.name},</Box>
+          <Box>{time(comm.created_at)}</Box>
         </CommentInfo>
       </Container>
     </Component>

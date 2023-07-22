@@ -1,10 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import noteService from "./note-service";
-import {
-  getSelectedNoteId,
-  setSelectedNote,
-} from "../../../shared/redux/store/selected-note-store";
-import { useSelector } from "react-redux";
+import { setSelectedNote } from "../../../shared/redux/store/selected-note-store";
 
 const notesListSlice = createSlice({
   name: "notes",
@@ -60,7 +56,9 @@ export const loadNotesList = () => async (dispatch) => {
   dispatch(notesRequested());
   try {
     const { content } = await noteService.get();
-    dispatch(notesReceived(content));
+    setTimeout(() => {
+      dispatch(notesReceived(content));
+    }, 1000);
   } catch (error) {
     dispatch(notesFailed(error.message));
   }
@@ -104,5 +102,6 @@ export const getSelectedNote = (id) => (state) => {
 };
 
 export const getNotesList = () => (state) => state.notes.entities;
+export const getIsLoadingNotesList = () => (state) => state.notes.isLoading;
 
 export default notesListReducer;

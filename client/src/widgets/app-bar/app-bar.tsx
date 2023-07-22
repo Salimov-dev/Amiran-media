@@ -5,9 +5,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { AppBar, Box, Toolbar, Button, TextField } from "@mui/material";
 // store
-import { getCurrentUserData } from "../../entities/user/store/users-store";
+import {
+  getCurrentUserData,
+  getUsersLoadingStatus,
+} from "../../entities/user/store/users-store";
 // components
 import UserMenu from "./components/user-menu";
+import Loader from "../loader";
 
 const ToolbarStyled = styled(Toolbar)`
   display: flex;
@@ -33,7 +37,9 @@ const ToolbarStyled = styled(Toolbar)`
 
 const Appbar = () => {
   const currentUser = useSelector(getCurrentUserData());
+  const isLoading = useSelector(getUsersLoadingStatus());
   const navigate = useNavigate();
+  console.log("currentUser", currentUser);
   
 
   const handleGoToLogin = () => {
@@ -41,8 +47,8 @@ const Appbar = () => {
   };
 
   const handleCreateNote = () => {
-    navigate("note/create")
-  }
+    navigate("note/create");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -55,18 +61,28 @@ const Appbar = () => {
             size="small"
           />
 
-          {currentUser && <Button onClick={handleCreateNote} variant="contained">Добавить статью</Button>}
-
-          {currentUser ? (
-            <UserMenu currentUser={currentUser} />
-          ) : (
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={handleGoToLogin}
-            >
-              Войти
+          {currentUser && (
+            <Button onClick={handleCreateNote} variant="contained">
+              Добавить статью
             </Button>
+          )}
+
+          {!isLoading ? (
+            <>
+              {currentUser ? (
+                <UserMenu currentUser={currentUser} />
+              ) : (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleGoToLogin}
+                >
+                  Войти
+                </Button>
+              )}
+            </>
+          ) : (
+            <Loader />
           )}
         </ToolbarStyled>
       </AppBar>

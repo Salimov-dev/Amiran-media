@@ -1,7 +1,9 @@
 Full-stack SPA. Платформа для хранения статей, где пользователи могут просматривать, а также оставлять отзывы и комментарии к статьям
 
 Frontend: TS, React, MUI, react-hook-form, Redux Toolkit, axios, rr6, yup
+
 Backend: Node, MongoDB, express
+
 Вместо SCSS использовал styled-components
 
 Запуск сервера npm run serve/ запуск клиента npm run dev

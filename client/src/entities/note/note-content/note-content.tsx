@@ -1,11 +1,8 @@
 // libraries
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // MUI
-import { Box, Typography, Button, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import styled from "@emotion/styled";
-// components
-import Comment from "../../comment/components/comment";
 // store
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserData } from "../../user/store/users-store";
@@ -15,25 +12,13 @@ import {
   getCommentsList,
   removeComment,
 } from "../../comment/store/comments-store";
+import CommentsBlock from "./components/comments-block";
 
 const Component = styled(Box)`
   width: 100%;
   padding: 20px;
-`;
-
-const CommentTitle = styled(Typography)`
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const CreateNewComment = styled(Box)`
-  width: 40%;
-`;
-
-const CommentField = styled(TextField)`
-  width: 100%;
-  background-color: white;
+  margin-left: 350px;
+  margin-top: 75px;
 `;
 
 const NoteContent = ({ note, author }) => {
@@ -65,8 +50,6 @@ const NoteContent = ({ note, author }) => {
   };
 
   const handleRemoveComment = (commId) => {
-    console.log("handleRemoveComment", commId);
-
     dispatch(removeComment(commId));
   };
 
@@ -75,50 +58,16 @@ const NoteContent = ({ note, author }) => {
       {note ? (
         <>
           <Note note={note} author={author} user={currentUserData} />
-          <>
-            <CommentTitle>Комментарии</CommentTitle>
-
-            <CreateNewComment>
-              <form
-                onSubmit={handleSubmit}
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                  marginBottom: "30px",
-                }}
-              >
-                <CommentField
-                  label="Комментарий"
-                  id="title"
-                  name="title"
-                  value={data}
-                  onChange={handleChange}
-                  multiline
-                  rows={2}
-                />
-                <Button type="submit" disabled={!data.length}>
-                  Опубликовать
-                </Button>
-              </form>
-            </CreateNewComment>
-
-            {filteredComments?.length ? (
-              filteredComments?.map((comm) => (
-                <Comment
-                  key={comm._id}
-                  comm={comm}
-                  user={currentUserData}
-                  onRemoveComment={handleRemoveComment}
-                />
-              ))
-            ) : (
-              <Typography>
-                Здесь пока ни кто не оставил ни одного комментария :-(
-              </Typography>
-            )}
-          </>
+          {currentUserData && (
+            <CommentsBlock
+              data={data}
+              onRemoveComment={handleRemoveComment}
+              onSubmit={handleSubmit}
+              comments={filteredComments}
+              user={currentUserData}
+              onChange={handleChange}
+            />
+          )}
         </>
       ) : (
         <Box>Выберите статью</Box>

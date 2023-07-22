@@ -11,6 +11,9 @@ import UserMenu from "./components/user-menu";
 
 const ToolbarStyled = styled(Toolbar)`
   display: flex;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
   justify-content: space-between;
   padding: 15px;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.4);

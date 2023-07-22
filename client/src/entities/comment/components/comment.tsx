@@ -62,7 +62,7 @@ const Comment = ({ comm, user, onRemoveComment }) => {
         <AuthorInfo>
           {isCurrenAuthor && (
             <ClearOutlinedIcon
-            onClick={()=>onRemoveComment(comm._id)}
+              onClick={() => onRemoveComment(comm._id)}
               sx={{
                 position: "absolute",
                 top: "0",

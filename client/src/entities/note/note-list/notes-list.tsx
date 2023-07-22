@@ -1,21 +1,49 @@
-import { Box } from "@mui/material";
-import styled from "@emotion/styled";
+// libraries
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+// MUI
+import { Box } from "@mui/material";
+import styled from "@emotion/styled";
+// store
 import { useSelector } from "react-redux";
 import { getCategoriesList } from "../../categories/store/categories-store";
 
 const Component = styled(Box)`
   width: 350px;
+  position: fixed;
+  top: 75px;
+  direction: rtl; /* Add the semicolon here */
+  background-color: #f9f9f7;
   border-right: 1px solid #cecece;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 100vw;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 100vw;
+  }
 `;
 
 const NoteElement = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "end",
   padding: "20px",
   borderBottom: "1px solid #f1f1ef",
   cursor: "pointer",
   "&:hover": {
-    background: "#dfdfdd",
+    background: "#c4c4c4",
     "& .cropContent": {
       color: "black",
     },
@@ -30,6 +58,7 @@ const Title = styled(Box)`
 const SubTitle = styled(Box)`
   display: flex;
   gap: 8px;
+  flex-direction: row-reverse;
 `;
 
 const Category = styled(Box)`
@@ -57,13 +86,20 @@ interface Note {
 
 const NotesList = ({ notes, onSelectNote, selectedNoteID }) => {
   const categories = useSelector(getCategoriesList());
-  
+
   const getCategoryName = (id) => {
     return categories?.find((cat) => cat?._id === id)?.name;
   };
 
   const time = (date: string) => {
-    return dayjs(date).format("HH:mm");
+    const currentDate = dayjs();
+    const noteDate = dayjs(date);
+
+    if (noteDate.isSame(currentDate, "day")) {
+      return noteDate.format("HH:mm");
+    } else {
+      return noteDate.locale("ru").format("DD.MM.YYYY");
+    }
   };
 
   return (

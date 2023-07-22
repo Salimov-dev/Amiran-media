@@ -67,10 +67,6 @@ function App() {
               <Route path={":noteId/edit"} element={<NoteEdit />} />
               <Route path="*" element={<Navigate to="" />} />
             </Route>
-
-            <Route path="comment">
-              <Route path={"create"} />
-            </Route>
           </Routes>
         </BrowserRouter>
       </AppLoader>

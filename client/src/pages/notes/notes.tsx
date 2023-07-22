@@ -1,4 +1,5 @@
 // libraries
+import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 // MUI
 import { Box } from "@mui/material";
@@ -17,6 +18,7 @@ import {
   getSelectedNoteId,
   setSelectedNote,
 } from "../../shared/redux/store/selected-note-store";
+import dayjs from "dayjs";
 
 const Component = styled(Box)`
   display: flex;
@@ -29,8 +31,20 @@ const Notes = () => {
   const noteAuthor = useSelector(getNoteAuthor(selectedNote?.userId));
   const notes = useSelector(getNotesList());
   const comments = useSelector(getCommentsList());
+  const sortedNotes = _.orderBy(
+    notes,
+    [(note) => dayjs(note.created_at).toDate()],
+    ["desc"]
+  );
 
   const dispatch = useDispatch();
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optionally, you can make the scrolling smooth
+    });
+  };
 
   const handleSelectNote = (id: string) => {
     dispatch(setSelectedNote(id));
@@ -39,7 +53,7 @@ const Notes = () => {
   return (
     <Component>
       <NotesList
-        notes={notes}
+        notes={sortedNotes}
         onSelectNote={handleSelectNote}
         selectedNoteID={selectedNoteID}
       />

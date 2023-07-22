@@ -4,6 +4,7 @@ import "dayjs/locale/ru";
 // MUI
 import { Box, Paper, Divider } from "@mui/material";
 import styled from "@emotion/styled";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 // store
 import { getNoteAuthor } from "../../user/store/users-store";
 import { useSelector } from "react-redux";
@@ -36,6 +37,7 @@ const CommentInfo = styled(Box)`
 `;
 
 const AuthorInfo = styled(Box)`
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -47,22 +49,28 @@ const Avatar = styled(`img`)({
   marginRight: "10px",
 });
 
-
-
-const Comment = ({ comm }) => {
-
-  
-
+const Comment = ({ comm, user, onRemoveComment }) => {
   const time = (date: string) => {
     return dayjs(date).locale("ru").format("DD.MM.YYYY в HH:mm");
   };
+
+  const isCurrenAuthor = comm?.userId === user?._id;
 
   return (
     <Component>
       <Container>
         <AuthorInfo>
-
-          {/* <ClearIcon/> */}
+          {isCurrenAuthor && (
+            <ClearOutlinedIcon
+            onClick={()=>onRemoveComment(comm._id)}
+              sx={{
+                position: "absolute",
+                top: "0",
+                right: "0",
+                cursor: "pointer",
+              }}
+            />
+          )}
           <Avatar src={useSelector(getNoteAuthor(comm.userId))?.image} />
           <CommentContent>{comm.comment}</CommentContent>
         </AuthorInfo>

@@ -10,7 +10,11 @@ import Comment from "../../comment/components/comment";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserData } from "../../user/store/users-store";
 import Note from "./components/note";
-import { createComment } from "../../comment/store/comments-store";
+import {
+  createComment,
+  getCommentsList,
+  removeComment,
+} from "../../comment/store/comments-store";
 
 const Component = styled(Box)`
   width: 100%;
@@ -32,7 +36,8 @@ const CommentField = styled(TextField)`
   background-color: white;
 `;
 
-const NoteContent = ({ note, author, comments }) => {
+const NoteContent = ({ note, author }) => {
+  const comments = useSelector(getCommentsList());
   const [data, setData] = useState("");
   const currentUserData = useSelector(getCurrentUserData());
   const dispatch = useDispatch();
@@ -57,6 +62,12 @@ const NoteContent = ({ note, author, comments }) => {
     dispatch(createComment(newComment));
 
     setData("");
+  };
+
+  const handleRemoveComment = (commId) => {
+    console.log("handleRemoveComment", commId);
+
+    dispatch(removeComment(commId));
   };
 
   return (
@@ -93,9 +104,14 @@ const NoteContent = ({ note, author, comments }) => {
               </form>
             </CreateNewComment>
 
-            {filteredComments.length ? (
-              filteredComments.map((comm) => (
-                <Comment key={comm._id} comm={comm} />
+            {filteredComments?.length ? (
+              filteredComments?.map((comm) => (
+                <Comment
+                  key={comm._id}
+                  comm={comm}
+                  user={currentUserData}
+                  onRemoveComment={handleRemoveComment}
+                />
               ))
             ) : (
               <Typography>

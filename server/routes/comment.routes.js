@@ -33,14 +33,15 @@ router.post("/", async (req, res) => {
 router.delete("/:commentId", async (req, res) => {
   try {
     const { commentId } = req.params;
-    const removedComment = await Comment.findById(commentId);
+    await Comment.findByIdAndRemove(commentId)
+    // const removedComment = await Comment.findById(commentId);
 
-    if (removedComment.userId.toString() === req.user._id) {
-      await removedComment.remove();
-      return res.send(null);
-    } else {
-      return res.status(401).json({ message: "Не авторизован" });
-    }
+    // if (removedComment.userId.toString() === req.user._id) {
+    //   await removedComment.remove();
+    //   return res.send(null);
+    // } else {
+    //   return res.status(401).json({ message: "Не авторизован" });
+    // }
   } catch (e) {
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",

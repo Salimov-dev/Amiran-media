@@ -63,17 +63,17 @@ export const createComment = (payload) => async (dispatch) => {
   }
 };
 
-// export const removeComment = (commentId) => async (dispatch) => {
-//   dispatch(removeCommentRequested());
-//   try {
-//     const { content } = await commentService.removeComment(commentId);
-//     if (!content) {
-//       dispatch(commentRemoved(commentId));
-//     }
-//   } catch (error) {
-//     dispatch(commentsRequestFiled(error.message));
-//   }
-// };
+export const removeComment = (commentId) => async (dispatch) => {
+  dispatch(removeCommentRequested());
+  try {
+    const { content } = await commentService.removeComment(commentId);
+    if (!content) {
+      dispatch(commentRemoved(commentId));
+    }
+  } catch (error) {
+    dispatch(commentsFailed(error.message));
+  }
+};
 
 export const getCommentsList = () => (state) => state.comments.entities;
 

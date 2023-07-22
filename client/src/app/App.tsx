@@ -17,6 +17,7 @@ const AppStyled = styled(Box)`
   height: 100vh;
   background-color: #f9f9f7;
   overflow: auto;
+
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -32,7 +33,6 @@ const AppStyled = styled(Box)`
 `;
 
 function App() {
-  
   return (
     <AppStyled>
       <AppLoader>

@@ -1,5 +1,4 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import localStorageService from "../../../shared/redux/services/localStorage-service";
 import authService from "../../../shared/redux/services/auth-service";
 import { generetaAuthError } from "../../../shared/utils/generate-auth-error";
@@ -107,6 +106,7 @@ export const signUp = (payload) => async (dispatch) => {
     const data = await authService.register(payload);
     localStorageService.setTokens(data);
     dispatch(authRequestSuccess({ userId: data.userId }));
+    dispatch(loadUsersList());
   } catch (error) {
     dispatch(authRequestFailed(error.message));
   }

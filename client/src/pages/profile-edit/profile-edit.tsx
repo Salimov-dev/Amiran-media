@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // MUI
 import { Box, Button, Paper } from "@mui/material";
 import styled from "@emotion/styled";
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 // store
 import {
   getCurrentUserData,
@@ -75,7 +75,7 @@ const ProfileEdit = () => {
     <Box sx={{ marginTop: "75px" }}>
       <BackButton>
         <Button onClick={handleNavigate}>
-          <KeyboardArrowLeftOutlinedIcon  />
+          <KeyboardArrowLeftOutlinedIcon sx={{ paddingBottom: "2px" }} />
           Отменить
         </Button>
       </BackButton>

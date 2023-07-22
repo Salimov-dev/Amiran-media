@@ -88,7 +88,8 @@ const NoteEdit = () => {
     <Box sx={{ marginTop: "75px" }}>
       <BackButton>
         <Button onClick={handleNavigate}>
-          <KeyboardArrowLeftOutlinedIcon /> Отменить
+          <KeyboardArrowLeftOutlinedIcon sx={{ paddingBottom: "2px" }} />{" "}
+          Отменить
         </Button>
       </BackButton>
       <Component>

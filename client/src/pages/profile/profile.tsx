@@ -60,7 +60,7 @@ const Profile = () => {
     <Box sx={{ marginTop: "75px" }}>
       <BackButton>
         <Button onClick={handleNavigate}>
-          <KeyboardArrowLeftOutlinedIcon />
+          <KeyboardArrowLeftOutlinedIcon sx={{ paddingBottom: "2px" }} />
           Вернуться к статьям
         </Button>
       </BackButton>

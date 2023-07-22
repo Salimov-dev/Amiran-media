@@ -102,7 +102,7 @@ const NoteCreate = () => {
     <Box sx={{ marginTop: "75px" }}>
       <BackButton>
         <Button onClick={handleNavigate}>
-          <KeyboardArrowLeftOutlinedIcon />
+          <KeyboardArrowLeftOutlinedIcon sx={{paddingBottom: '2px'}}/>
           Назад к статьям
         </Button>
       </BackButton>

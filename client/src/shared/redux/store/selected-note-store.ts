@@ -17,7 +17,7 @@ const selectedNoteSlice = createSlice({
 const { reducer: selectedNoteReducer, actions } = selectedNoteSlice;
 const { selectedNoteReceived } = actions;
 
-export const setSelectedNoteList = (noteId) => async (dispatch) => {
+export const setSelectedNote = (noteId) => async (dispatch) => {
   try {
     await dispatch(selectedNoteReceived(noteId));
     localStorage.setItem("selectedNoteId", noteId);
@@ -25,12 +25,7 @@ export const setSelectedNoteList = (noteId) => async (dispatch) => {
 };
 
 export const getSelectedNoteId = () => (state) => {
-  const selectedNoteStorage = localStorage.getItem("selectedNoteId");
-  if (selectedNoteStorage) {
-    return selectedNoteStorage;
-  } else {
-    return state.selectedNote.entities;
-  }
+  return state.selectedNote.entities;
 };
 
 export default selectedNoteReducer;

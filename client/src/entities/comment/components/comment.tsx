@@ -4,6 +4,8 @@ import "dayjs/locale/ru";
 // MUI
 import { Box, Paper, Divider } from "@mui/material";
 import styled from "@emotion/styled";
+// import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import ClearIcon from "@mui/icons-material/Clear"
 // store
 import { getNoteAuthor } from "../../user/store/users-store";
 import { useSelector } from "react-redux";
@@ -56,6 +58,9 @@ const Comment = ({ comm }) => {
     <Component>
       <Container>
         <AuthorInfo>
+          {/* <img src={ClearOutlinedIcon} alt="" /> */}
+          {/* <ClearOutlinedIcon/> */}
+          <ClearIcon/>
           <Avatar src={useSelector(getNoteAuthor(comm.userId))?.image} />
           <CommentContent>{comm.comment}</CommentContent>
         </AuthorInfo>

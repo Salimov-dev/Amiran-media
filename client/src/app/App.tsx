@@ -16,6 +16,19 @@ import NoteCreate from "../pages/note-create/note-create";
 const AppStyled = styled(Box)`
   height: 100vh;
   background-color: #f9f9f7;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 100vw;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 100vw;
+  }
 `;
 
 function App() {
@@ -54,6 +67,12 @@ function App() {
               <Route path={":noteId/edit"} element={<NoteEdit />} />
               <Route path="*" element={<Navigate to="" />} />
             </Route>
+
+            <Route path="comment">
+              <Route path={"create"} />
+    
+            </Route>
+
           </Routes>
         </BrowserRouter>
       </AppLoader>

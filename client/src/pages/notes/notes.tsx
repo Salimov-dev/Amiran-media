@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 // components
-import NoteContent from "../../entities/note/components/note-content";
-import NotesList from "../../entities/note/components/notes-list";
+import NoteContent from "../../entities/note/note-content/note-content";
+import NotesList from "../../entities/note/note-list/notes-list";
 // store
 import {
   getNotesList,
@@ -15,7 +15,7 @@ import { getNoteAuthor } from "../../entities/user/store/users-store";
 import { getCommentsList } from "../../entities/comment/store/comments-store";
 import {
   getSelectedNoteId,
-  setSelectedNoteList,
+  setSelectedNote,
 } from "../../shared/redux/store/selected-note-store";
 
 const Component = styled(Box)`
@@ -33,7 +33,7 @@ const Notes = () => {
   const dispatch = useDispatch();
 
   const handleSelectNote = (id: string) => {
-    dispatch(setSelectedNoteList(id));
+    dispatch(setSelectedNote(id));
   };
 
   return (

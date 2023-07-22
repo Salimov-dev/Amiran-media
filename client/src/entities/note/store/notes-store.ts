@@ -2,7 +2,7 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import noteService from "./note-service";
 import {
   getSelectedNoteId,
-  setSelectedNoteList,
+  setSelectedNote,
 } from "../../../shared/redux/store/selected-note-store";
 import { useSelector } from "react-redux";
 
@@ -70,7 +70,7 @@ export const createNote = (payload) => async (dispatch) => {
   dispatch(addNoteRequested());
   try {
     const { content } = await noteService.create(payload);
-    dispatch(setSelectedNoteList(content._id));
+    dispatch(setSelectedNote(content._id));
     dispatch(noteCreated(content));
   } catch (error) {
     dispatch(noteRequestFailed(error.message));

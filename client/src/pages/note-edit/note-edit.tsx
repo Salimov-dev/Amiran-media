@@ -41,8 +41,9 @@ const BackButton = styled(Box)`
 `;
 
 const NoteEdit = () => {
+  const selectedNoteStorage = localStorage.getItem("selectedNoteId");
   const selectedNoteId = useSelector(getSelectedNoteId());
-  const selectedNote = useSelector(getSelectedNote(selectedNoteId));
+  const selectedNote = useSelector(getSelectedNote(selectedNoteStorage));
   const currentUserData = useSelector(getCurrentUserData());
   const categories = useSelector(getCategoriesList());
   const [data, setData] = useState({

@@ -24,4 +24,10 @@ Backend: Node, MongoDB, express
 
 ![2](https://github.com/Salimov-dev/Amiran-media/assets/108460956/6b2d9e57-abef-425c-8ab5-c8d6866a88d7)
 
+![image](https://github.com/Salimov-dev/Amiran-media/assets/108460956/7c0df446-deea-42a7-ab99-6ab95340b53f)
+
+![image](https://github.com/Salimov-dev/Amiran-media/assets/108460956/920d2bb0-b054-4c29-be41-09a41ae949ee)
+
+![4](https://github.com/Salimov-dev/Amiran-media/assets/108460956/926755cb-9108-4550-b423-658f580fa82f)
+
 ![3](https://github.com/Salimov-dev/Amiran-media/assets/108460956/6fae0d0b-881d-479b-b5a9-f9103efaec9d)

@@ -4,15 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 // MUI
 import styled from "@emotion/styled";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Button,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import { AppBar, Box, Toolbar, Button } from "@mui/material";
 // store
 import {
   getCurrentUserData,
@@ -54,7 +46,10 @@ const Appbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const shouldHideButton = location.pathname === "/note/create";
-  const shouldHideSearch = location.pathname === "/auth/login" || location.pathname === "/auth/signup";
+  const shouldHideElement =
+    location.pathname.startsWith("/auth/") ||
+    location.pathname.startsWith("/user/") ||
+    location.pathname.startsWith("/note/");
 
   const handleGoToLogin = () => {
     navigate("auth/login");
@@ -71,10 +66,14 @@ const Appbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
-        <ToolbarStyled>
-          {!shouldHideSearch && <SearchField data={data} setData={setData} />}
+        <ToolbarStyled
+          sx={{
+            justifyContent: shouldHideElement ? "end !important" : "inherit",
+          }}
+        >
+          {!shouldHideElement && <SearchField data={data} setData={setData} />}
 
-          {currentUser ? (
+          {currentUser && !shouldHideElement && (
             <Button
               onClick={handleCreateNote}
               variant="contained"
@@ -82,8 +81,6 @@ const Appbar = () => {
             >
               Добавить статью
             </Button>
-          ) : (
-            shouldHideButton && <Loader />
           )}
 
           {!isLoading ? (
@@ -91,13 +88,15 @@ const Appbar = () => {
               {currentUser ? (
                 <UserMenu currentUser={currentUser} />
               ) : (
-                !shouldHideSearch && <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={handleGoToLogin}
-                >
-                  Войти
-                </Button>
+                !shouldHideElement && (
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleGoToLogin}
+                  >
+                    Войти
+                  </Button>
+                )
               )}
             </>
           ) : (

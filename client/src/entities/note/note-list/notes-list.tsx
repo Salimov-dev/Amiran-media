@@ -16,8 +16,7 @@ import Loader from "../../../widgets/loader";
 const Component = styled(Box)`
   width: 350px;
   position: fixed;
-  top: 71px;
-  direction: rtl; /* Add the semicolon here */
+  top: 75px;
   background-color: #f9f9f7;
   border-right: 1px solid #cecece;
   overflow-y: auto;
@@ -35,7 +34,7 @@ const Component = styled(Box)`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: gray;
+    background-color: #c4c4c4;
     border-radius: 100vw;
   }
 `;
@@ -43,7 +42,7 @@ const Component = styled(Box)`
 const NoteElement = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  alignItems: "end",
+  alignItems: "start",
   padding: "20px",
   borderBottom: "1px solid #f1f1ef",
   cursor: "pointer",
@@ -63,7 +62,6 @@ const Title = styled(Box)`
 const SubTitle = styled(Box)`
   display: flex;
   gap: 8px;
-  flex-direction: row-reverse;
 `;
 
 const Category = styled(Box)`

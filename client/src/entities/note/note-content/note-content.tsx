@@ -20,6 +20,7 @@ const Component = styled(Box)`
   padding: 20px;
   margin-left: 350px;
   margin-top: 75px;
+  margin-bottom: 150px;
 `;
 
 const NoteContent = ({ note, author }) => {

@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // MUI
 import styled from "@emotion/styled";
 import { Box, Button, Typography, Paper } from "@mui/material";
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 // store
 import { login } from "../../entities/user/store/users-store";
 // components
@@ -22,7 +23,6 @@ const Component = styled(Box)`
 `;
 
 const AuthForm = styled(Paper)`
-  margin-top: 50px;
   padding: 20px 20px 50px 20px;
   width: 400px;
 `;
@@ -35,6 +35,7 @@ const Title = styled(Box)`
 
 const BackButton = styled(Box)`
   padding: 20px 0 0 20px;
+  margin-top: 60px;
 `;
 
 const schema = yup.object().shape({
@@ -85,7 +86,10 @@ const Login = () => {
   return (
     <>
       <BackButton>
-        <Button onClick={handleNavigate}>Назад</Button>
+        <Button onClick={handleNavigate}>
+          <KeyboardArrowLeftOutlinedIcon sx={{ paddingBottom: "2px" }} />
+          На главную
+        </Button>
       </BackButton>
       <Component>
         <AuthForm>

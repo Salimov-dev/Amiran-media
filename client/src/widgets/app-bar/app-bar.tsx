@@ -22,6 +22,7 @@ import {
 import UserMenu from "./components/user-menu";
 import Loader from "../loader";
 import { setSearchQuery } from "../../shared/redux/store/search-query-store";
+import SearchField from "./components/search-field";
 
 const ToolbarStyled = styled(Toolbar)`
   display: flex;
@@ -45,11 +46,6 @@ const ToolbarStyled = styled(Toolbar)`
   }
 `;
 
-const TextFieldContainer = styled.div`
-  position: relative;
-  min-width: 200px; /* Set your desired minimum width here */
-`;
-
 const Appbar = () => {
   const [data, setData] = useState("");
   const currentUser = useSelector(getCurrentUserData());
@@ -58,6 +54,7 @@ const Appbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const shouldHideButton = location.pathname === "/note/create";
+  const shouldHideSearch = location.pathname === "/auth/login" || location.pathname === "/auth/signup";
 
   const handleGoToLogin = () => {
     navigate("auth/login");
@@ -75,32 +72,7 @@ const Appbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
         <ToolbarStyled>
-          <TextFieldContainer>
-            <TextField
-              id="search"
-              label="Найти статью"
-              variant="outlined"
-              size="small"
-              value={data}
-              onChange={(e) => setData(e.target.value)}
-            />
-            {data && (
-              <InputAdornment position="end">
-                <ClearOutlinedIcon
-                  sx={{
-                    color: "gray",
-                    width: "20px",
-                    cursor: "pointer",
-                    position: "absolute",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    right: "10px",
-                  }}
-                  onClick={() => setData("")}
-                />
-              </InputAdornment>
-            )}
-          </TextFieldContainer>
+          {!shouldHideSearch && <SearchField data={data} setData={setData} />}
 
           {currentUser ? (
             <Button
@@ -119,7 +91,7 @@ const Appbar = () => {
               {currentUser ? (
                 <UserMenu currentUser={currentUser} />
               ) : (
-                <Button
+                !shouldHideSearch && <Button
                   variant="outlined"
                   color="primary"
                   onClick={handleGoToLogin}
